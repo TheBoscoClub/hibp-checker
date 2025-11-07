@@ -35,9 +35,31 @@ This project uses data from **Have I Been Pwned**, licensed under [Creative Comm
 
 ---
 
-**Platform**: Linux only (bash scripts) | [Windows guide](WINDOWS_INSTALL.md)
+**Platform**: Linux (native) | Windows/macOS (Docker) | [Windows/WSL2 guide](WINDOWS_INSTALL.md) | [Docker guide](DOCKER.md)
 **Dependencies**: Python 3.6+, bash, requests library, **HIBP API subscription**
 **Claude Code**: Optional (works standalone)
+
+## Quick Start Options
+
+### 🐧 Linux (Native)
+```bash
+git clone https://github.com/greogory/hibp-checker.git
+cd hibp-checker
+./quick_start.sh
+```
+
+### 🐳 Windows/macOS (Docker - Recommended)
+```bash
+docker run --rm \
+  -e HIBP_API_KEY="your-api-key" \
+  ghcr.io/greogory/hibp-checker:latest \
+  python3 hibp_comprehensive_checker.py -e email@example.com -o text
+```
+
+📖 **[Complete Docker Guide →](DOCKER.md)**
+
+### 🪟 Windows (WSL2)
+See **[Windows Installation Guide](WINDOWS_INSTALL.md)** for WSL2 setup
 
 ## Overview
 

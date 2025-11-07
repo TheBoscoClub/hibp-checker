@@ -1,0 +1,49 @@
+# Git files
+.git
+.gitignore
+.github
+
+# Sensitive files
+hibp_config.conf
+my_emails.txt
+passwords.txt
+*.env
+.env
+
+# Generated files
+hibp_report_*
+*.log
+logs/
+reports/
+
+# Build artifacts
+*.pyc
+__pycache__/
+*.so
+*.egg-info/
+dist/
+build/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (included separately)
+*.md
+!README.md
+
+# Archives
+*.tar.gz
+*.zip
+
+# Test files
+test_*
+TEST_*
+.last_breach_check
