@@ -1,0 +1,465 @@
+# HIBP Comprehensive Breach & Credential Stuffing Checker
+
+## Overview
+
+This automated workflow goes beyond basic breach checking to provide deep insights into password compromises, stealer logs, and credential stuffing threats from Have I Been Pwned's databases.
+
+## Key Features
+
+- **Comprehensive Breach Analysis**: Identifies all breaches with detailed categorization
+- **Password Exposure Detection**: Tracks which breaches exposed passwords and their storage format (plaintext, MD5, bcrypt, etc.)
+- **Stealer Log Mining**: Queries HIBP's stealer log data (including credential stuffing compilations like Synthient)
+- **Critical Site Identification**: Flags compromises on banking, cloud, and authentication services
+- **Pwned Password Checking**: Validates passwords against 900+ million compromised credentials
+- **Multi-format Reporting**: JSON, CSV, and human-readable text reports
+- **Claude Code Integration**: Designed for seamless automation with Claude Code CLI
+- **Multiple Email Support**: Monitor unlimited email addresses with a single configuration
+
+## Multiple Email Address Setup
+
+### Option 1: Quick Setup (Recommended)
+```bash
+# Interactive setup with email configuration
+./quick_start.sh
+
+# Choose option 2 when prompted for "many email addresses"
+# The script will create my_emails.txt for you
+```
+
+### Option 2: Manual Configuration
+
+#### Method A: Direct Email List (Good for 1-5 emails)
+Edit `hibp_config.conf`:
+```bash
+EMAIL_ADDRESSES="bosco@personal.com admin@work.com noreply@service.com"
+```
+
+#### Method B: Email File (Recommended for 5+ emails)
+Create `my_emails.txt`:
+```
+# One email per line
+bosco@personal.com
+admin@work.com
+support@myservice.com
+legacy@oldprovider.com
+noreply@automation.com
+```
+
+Then in `hibp_config.conf`:
+```bash
+EMAIL_FILE="./my_emails.txt"
+```
+
+#### Method C: Combine Both
+```bash
+# Some emails directly
+EMAIL_ADDRESSES="critical@admin.com"
+# Rest in file
+EMAIL_FILE="./bulk_emails.txt"
+```
+
+### Email Management Commands
+```bash
+# Create new email file
+./hibp_workflow.sh emails create
+
+# Add email to existing file
+./hibp_workflow.sh add-email bosco@newdomain.com
+
+# List all configured emails
+./hibp_workflow.sh list-emails
+
+# Validate email formats
+./hibp_workflow.sh validate-emails
+```
+
+## Automated Monitoring Setup
+
+### 1. Initial Configuration
+```bash
+# Run interactive setup
+./hibp_workflow.sh setup
+
+# Or use quick start
+./quick_start.sh
+```
+
+### 2. Configure Scheduling
+```bash
+# Enable automated checks
+ENABLE_SCHEDULED_CHECKS=true
+
+# Schedule options:
+SCHEDULE="0 3 * * *"     # Daily at 3 AM
+SCHEDULE="0 9 * * 1"     # Weekly Monday 9 AM
+SCHEDULE="0 */6 * * *"   # Every 6 hours
+SCHEDULE="0 0 1 * *"     # Monthly on the 1st
+```
+
+### 3. Set Up Notifications
+```bash
+# In hibp_config.conf:
+SEND_NOTIFICATIONS=true
+NOTIFICATION_EMAIL="bosco@maindomain.com"
+NOTIFY_ONLY_NEW=true  # Only alert on NEW breaches
+```
+
+### 4. Apply Schedule
+```bash
+./hibp_workflow.sh schedule
+```
+
+## Rate Limits by Subscription
+
+| Subscription | RPM | Emails/Min | Daily Checks |
+|-------------|-----|------------|--------------|
+| Pwned 1 | 10 | ~3 | 4,320 |
+| Pwned 2 | 50 | ~15 | 21,600 |
+| Pwned 3 | 100 | ~30 | 43,200 |
+| Pwned 4 | 500 | ~150 | 216,000 |
+
+With Pwned 1, you can comfortably monitor 10-20 emails with multiple daily checks.
+
+## About Synthient & Credential Stuffing Data
+
+The "Synthient Credential Stuffing Threat Data" is incorporated into HIBP's stealer log breaches. These are flagged with `IsStealerLog: true` and represent:
+
+- Credentials captured by info-stealers (malware that grabs saved passwords)
+- Compiled lists used for credential stuffing attacks
+- Active credentials paired with specific websites (e.g., netflix.com:user@email.com:password)
+
+Our tool specifically queries the stealer log API endpoints to identify where your credentials may be actively exploited.
+
+## Installation
+
+```bash
+# Clone or download the scripts
+chmod +x hibp_workflow.sh
+chmod +x hibp_comprehensive_checker.py
+
+# Install Python dependencies (minimal - uses stdlib mostly)
+pip3 install requests
+
+# Run interactive setup
+./hibp_workflow.sh setup
+```
+
+## Quick Start for Multiple Emails
+
+```bash
+# Option 1: Interactive setup with guided configuration
+./quick_start.sh
+# Choose option 2 for email file creation
+# Add your emails when prompted
+# Enable scheduling when asked
+
+# Option 2: Manual setup with email file
+cat > my_emails.txt << EOF
+bosco@personal.com
+admin@work.com
+support@service.com
+EOF
+
+./hibp_workflow.sh setup
+# Point to my_emails.txt when asked for email file
+
+# Option 3: Quick command-line setup
+echo "HIBP_API_KEY='your-key-here'" > hibp_config.conf
+echo "EMAIL_FILE='./my_emails.txt'" >> hibp_config.conf
+./hibp_workflow.sh check
+```
+
+## Automation Workflows
+
+### Daily Security Monitoring
+```bash
+#!/bin/bash
+# save as: daily_security_check.sh
+
+# Run HIBP check
+./hibp_workflow.sh check
+EXIT_CODE=$?
+
+# Handle results based on severity
+if [[ $EXIT_CODE -eq 2 ]]; then
+    # Critical: passwords compromised
+    echo "🚨 CRITICAL SECURITY ALERT"
+    # Trigger password reset workflow
+    ./initiate_password_resets.sh
+    # Lock compromised accounts
+    ./lockdown_accounts.sh
+elif [[ $EXIT_CODE -eq 1 ]]; then
+    # Warning: breaches detected
+    echo "⚠️ Security breaches detected"
+    # Generate report for security team
+    ./generate_security_report.sh
+fi
+```
+
+### New Breach Detection
+The workflow tracks previous results to detect NEW breaches:
+```bash
+# Automatic tracking in .last_breach_check
+# Only notifies when NEW breaches appear
+NOTIFY_ONLY_NEW=true
+```
+
+### Integration with CI/CD
+```yaml
+# .gitlab-ci.yml
+hibp_security_check:
+  stage: security
+  script:
+    - ./hibp_workflow.sh check
+  artifacts:
+    paths:
+      - reports/
+  only:
+    - schedules
+  allow_failure: false
+```
+
+## Configuration
+
+The tool uses `hibp_config.conf` for settings:
+
+```bash
+# Required
+HIBP_API_KEY="your-32-character-api-key-here"
+
+# Email sources (use one or both)
+EMAIL_ADDRESSES="bosco@example.com admin@company.com"
+EMAIL_FILE="/path/to/emails.txt"
+
+# Optional password checking
+PASSWORDS="TestPass123 OldPassword456"  # Will be hashed before sending
+PASSWORD_FILE="/path/to/passwords.txt"
+
+# Output and notifications
+OUTPUT_FORMAT="text"  # json, csv, or text
+VERBOSE=true
+SEND_NOTIFICATIONS=true
+SLACK_WEBHOOK="https://hooks.slack.com/services/..."
+```
+
+## Usage
+
+### Command Line (Direct)
+
+```bash
+# Basic check with config file
+./hibp_workflow.sh check
+
+# Direct Python script usage
+python3 hibp_comprehensive_checker.py \
+    -k YOUR_API_KEY \
+    -e email1@example.com email2@example.com \
+    -p password1 password2 \
+    -o text \
+    -v
+
+# Check emails from file
+python3 hibp_comprehensive_checker.py \
+    -k YOUR_API_KEY \
+    --email-file emails.txt \
+    --password-file passwords.txt \
+    -o json
+```
+
+### Claude Code Integration
+
+```bash
+# One-time setup
+claude-code run ./hibp_workflow.sh setup
+
+# Run comprehensive check
+claude-code run ./hibp_workflow.sh check
+
+# Schedule automated checks (via cron)
+claude-code run ./hibp_workflow.sh schedule
+```
+
+### Automation Workflow
+
+```bash
+# Add to your CI/CD pipeline
+#!/bin/bash
+source hibp_config.conf
+./hibp_workflow.sh check
+EXIT_CODE=$?
+
+case $EXIT_CODE in
+    0) echo "✓ No breaches" ;;
+    1) echo "⚠ Breaches found" ;;
+    2) echo "🚨 CRITICAL: Passwords compromised!" 
+       # Trigger password reset workflow
+       ./trigger_password_reset.sh
+       ;;
+esac
+```
+
+## API Endpoints Used
+
+The tool queries these HIBP API v3 endpoints:
+
+1. **Breached Account** (`/breachedaccount/{email}`)
+   - Returns all breaches for an email
+   - Includes breach metadata and data classes
+
+2. **Stealer Logs by Email** (`/stealerlogsbyemail/{email}`)
+   - Returns domains where credentials were captured
+   - This includes Synthient and other credential stuffing data
+
+3. **Pastes** (`/pasteaccount/{email}`)
+   - Checks if email appears in public pastes
+
+4. **Pwned Passwords** (`/range/{hash_prefix}`)
+   - k-anonymity search for compromised passwords
+   - No API key required
+
+## Understanding the Results
+
+### Breach Categories
+
+- **Verified**: Legitimately hacked and verified by HIBP
+- **Unverified**: Likely legitimate but not independently verified
+- **Sensitive**: Adult sites (not returned by public API)
+- **Stealer Logs**: Active credentials from malware/credential stuffing
+
+### Password Exposure Types
+
+The tool analyzes breach descriptions to determine password storage:
+
+- `plaintext`: Passwords stored without encryption (CRITICAL)
+- `md5_hash`: Weak hashing, easily cracked
+- `sha1_hash`: Weak hashing, vulnerable to rainbow tables
+- `bcrypt_hash`: Strong hashing, but still change password
+- `encrypted`: Unknown encryption method
+- `unknown`: Cannot determine from description
+
+### Critical Sites
+
+Automatically flags compromises on:
+- Financial: banks, PayPal, Stripe, Square
+- Cloud: AWS, Azure, DigitalOcean
+- Auth: Google, Microsoft, GitHub
+- Social: Facebook, LinkedIn, Twitter
+
+## Exit Codes
+
+- `0`: No breaches detected
+- `1`: Breaches found (non-critical)
+- `2`: Critical - passwords exposed or critical sites compromised
+
+## Report Formats
+
+### Text Report (Default)
+```
+HIBP COMPREHENSIVE BREACH REPORT
+Generated: 2024-11-07T10:30:00
+============================================================
+
+EMAIL: bosco@example.com
+------------------------------
+Total Breaches: 5
+Password Exposed In:
+  - Adobe (2013-10-04) - Type: md5_hash
+  - LinkedIn (2012-05-05) - Type: sha1_hash
+
+Credentials Stolen For 3 Sites:
+  - netflix.com
+  - spotify.com
+  - github.com
+
+CRITICAL SITES COMPROMISED:
+  ⚠️  github.com
+```
+
+### JSON Report
+Structured data for programmatic processing:
+```json
+{
+  "scan_date": "2024-11-07T10:30:00",
+  "emails_checked": [...],
+  "summary": {
+    "total_breaches": 5,
+    "password_exposures": 2,
+    "stealer_log_hits": 3,
+    "critical_sites_compromised": 1
+  }
+}
+```
+
+## Security Notes
+
+1. **API Key Security**: Store in environment variable or secure vault
+2. **Password Handling**: Passwords are SHA-1 hashed before API transmission
+3. **k-Anonymity**: Only first 5 characters of password hash sent to API
+4. **Rate Limiting**: Built-in delays to respect API limits (varies by subscription)
+
+## Troubleshooting
+
+### Common Issues
+
+1. **401 Unauthorized**: Invalid API key
+2. **429 Too Many Requests**: Hitting rate limit, script auto-retries
+3. **404 Not Found**: Email not in any breaches (good news!)
+
+### Debug Mode
+
+```bash
+# Enable verbose logging
+VERBOSE=true ./hibp_workflow.sh check
+
+# Test configuration
+./hibp_workflow.sh test
+```
+
+## Advanced Features
+
+### Custom Actions
+
+Edit `hibp_workflow.sh` to add custom triggers:
+
+```bash
+trigger_actions() {
+    local severity="$1"
+    if [[ "$severity" == "critical" ]]; then
+        # Your custom actions
+        disable_account "$email"
+        force_mfa_enrollment "$email"
+        notify_security_team "$report"
+    fi
+}
+```
+
+### Integration Examples
+
+**With Ansible:**
+```yaml
+- name: Check HIBP breaches
+  command: /opt/hibp/hibp_workflow.sh check
+  register: hibp_result
+  failed_when: hibp_result.rc == 2
+```
+
+**With Docker:**
+```dockerfile
+FROM python:3.9-slim
+COPY hibp_*.py /app/
+RUN pip install requests
+ENTRYPOINT ["python3", "/app/hibp_comprehensive_checker.py"]
+```
+
+## License
+
+MIT - Free for personal and commercial use
+
+## Support
+
+For HIBP API issues: https://haveibeenpwned.com/API/v3
+For tool issues: Create an issue or PR
+
+---
+
+*Built for Bosco's automation workflow - because knowing is half the battle, and automation is the other half.*

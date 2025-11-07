@@ -1,0 +1,132 @@
+# HIBP Comprehensive Checker Configuration
+# ==========================================
+# Copy this file to hibp_config.conf and fill in your details
+
+# ==========================================
+# REQUIRED: HIBP API Key
+# ==========================================
+# Get your API key from: https://haveibeenpwned.com/API/Key
+# This is a 32-character hexadecimal key
+HIBP_API_KEY="YOUR_API_KEY_HERE"
+
+# ==========================================
+# Email Addresses to Monitor
+# ==========================================
+# Option 1: Direct email list (good for 1-5 emails)
+# Separate multiple emails with spaces
+EMAIL_ADDRESSES=""
+
+# Option 2: Email file (recommended for 5+ emails)
+# Point to a file with one email per line
+EMAIL_FILE="./my_emails.txt"
+
+# You can use BOTH options - all emails will be checked
+
+# ==========================================
+# Password Checking (Optional)
+# ==========================================
+# Option 1: Direct password list
+# WARNING: Passwords are hashed before sending to API
+# Still, store this file securely!
+PASSWORDS=""
+
+# Option 2: Password file (recommended)
+# One password per line
+PASSWORD_FILE=""
+
+# ==========================================
+# Output and Reporting
+# ==========================================
+# Output format: text, json, or csv
+OUTPUT_FORMAT="text"
+
+# Output directory for reports
+OUTPUT_DIR="./reports"
+
+# Verbose output (true/false)
+VERBOSE=true
+
+# Save reports to timestamped files
+SAVE_REPORTS=true
+
+# ==========================================
+# Notifications
+# ==========================================
+# Enable notifications for new breaches
+SEND_NOTIFICATIONS=false
+
+# Notification email (requires mail/sendmail configured)
+NOTIFICATION_EMAIL=""
+
+# Only notify on NEW breaches (not previously seen)
+NOTIFY_ONLY_NEW=true
+
+# Slack webhook (optional)
+SLACK_WEBHOOK=""
+
+# Discord webhook (optional)
+DISCORD_WEBHOOK=""
+
+# ==========================================
+# Scheduling and Automation
+# ==========================================
+# Enable scheduled checks via cron
+ENABLE_SCHEDULED_CHECKS=false
+
+# Cron schedule expression (when ENABLE_SCHEDULED_CHECKS=true)
+# Examples:
+#   "0 3 * * *"     = Daily at 3 AM
+#   "0 9 * * 1"     = Every Monday at 9 AM
+#   "0 */6 * * *"   = Every 6 hours
+#   "0 0 1 * *"     = Monthly on the 1st
+SCHEDULE="0 3 * * *"
+
+# ==========================================
+# Rate Limiting
+# ==========================================
+# Delay between API calls (in seconds)
+# Adjust based on your subscription tier:
+#   Pwned 1: 6 seconds (10 RPM)
+#   Pwned 2: 1.2 seconds (50 RPM)
+#   Pwned 3: 0.6 seconds (100 RPM)
+#   Pwned 4: 0.12 seconds (500 RPM)
+API_DELAY=6
+
+# ==========================================
+# Advanced Options
+# ==========================================
+# Include unverified breaches
+INCLUDE_UNVERIFIED=true
+
+# Check for pastes (public paste sites)
+CHECK_PASTES=true
+
+# Check stealer logs (includes Synthient data)
+CHECK_STEALER_LOGS=true
+
+# Truncate response (HIBP API option)
+TRUNCATE_RESPONSE=false
+
+# ==========================================
+# Security and Privacy
+# ==========================================
+# Path to store breach history (for detecting new breaches)
+HISTORY_FILE="./.last_breach_check"
+
+# Redact sensitive information in logs
+REDACT_SENSITIVE=true
+
+# Log level: INFO, WARNING, ERROR
+LOG_LEVEL="INFO"
+
+# ==========================================
+# Critical Action Triggers
+# ==========================================
+# Trigger actions when critical sites are compromised
+TRIGGER_ON_CRITICAL_SITES=true
+
+# Trigger actions on password exposure
+TRIGGER_ON_PASSWORD_EXPOSURE=true
+
+# Custom action script to run on critical findings (optional)
+CUSTOM_ACTION_SCRIPT=""

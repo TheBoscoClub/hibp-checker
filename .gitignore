@@ -1,0 +1,55 @@
+# Sensitive Configuration Files
+hibp_config.conf
+my_emails.txt
+passwords.txt
+
+# Generated Reports (may contain personal data)
+hibp_report_*.txt
+hibp_report_*.json
+hibp_report_*.csv
+
+# Logs (may contain email addresses)
+logs/
+*.log
+
+# Breach History
+.last_breach_check
+.breach_history
+
+# Reports Directory
+reports/
+
+# Test Files with Real Data
+test_emails.txt
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Backup Files
+*.bak
+*.backup
+*~
+
+# Temporary Files
+*.tmp
+.cache/

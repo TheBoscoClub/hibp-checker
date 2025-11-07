@@ -1,0 +1,39 @@
+# HIBP Email Monitoring List
+# ===========================
+# Add one email address per line below
+# Lines starting with # are comments and will be ignored
+# Empty lines are also ignored
+#
+# Format: one email address per line
+# Example:
+#   personal@gmail.com
+#   work@company.com
+#   admin@myservice.com
+#   noreply@automated-service.com
+#   legacy@old-provider.com
+#
+# Tips:
+# - Include all your active email addresses
+# - Don't forget old emails that might still be in breaches
+# - Add service/noreply addresses you control
+# - Include admin/root accounts for your domains
+#
+# Categories you might want to check:
+# 
+# Personal emails:
+# -----------------
+
+# Work/Professional emails:
+# -------------------------
+
+# Service accounts:
+# -----------------
+
+# Legacy/Old emails:
+# ------------------
+
+# Domain admin emails:
+# --------------------
+
+# Add your email addresses below this line:
+# =========================================
