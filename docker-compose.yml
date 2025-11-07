@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  hibp-checker:
+    image: ghcr.io/greogory/hibp-checker:latest
+    container_name: hibp-checker
+    environment:
+      # REQUIRED: Set your HIBP API key
+      # Get your key from: https://haveibeenpwned.com/API/Key
+      - HIBP_API_KEY=${HIBP_API_KEY}
+    volumes:
+      # Mount your email list
+      - ./my_emails.txt:/app/data/my_emails.txt:ro
+      # Mount reports directory (output)
+      - ./reports:/app/reports
+      # Mount logs directory (output)
+      - ./logs:/app/logs
+      # Optional: Mount custom config
+      # - ./hibp_config.conf:/app/hibp_config.conf:ro
+    command: python3 hibp_comprehensive_checker.py --email-file /app/data/my_emails.txt -o text -v
+
+  # One-time check service
+  hibp-check-once:
+    image: ghcr.io/greogory/hibp-checker:latest
+    container_name: hibp-checker-oneshot
+    environment:
+      - HIBP_API_KEY=${HIBP_API_KEY}
+    volumes:
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    profiles:
+      - oneshot
+    command: python3 hibp_comprehensive_checker.py -e ${EMAIL} -o text -v
