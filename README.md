@@ -421,12 +421,29 @@ EXIT_CODE=$?
 case $EXIT_CODE in
     0) echo "✓ No breaches" ;;
     1) echo "⚠ Breaches found" ;;
-    2) echo "🚨 CRITICAL: Passwords compromised!" 
+    2) echo "🚨 CRITICAL: Passwords compromised!"
        # Trigger password reset workflow
        ./trigger_password_reset.sh
        ;;
 esac
 ```
+
+## ⏰ Automated Scheduling
+
+Set up automated daily/weekly checks using systemd, cron, or Docker:
+
+```bash
+# Linux with systemd (recommended)
+./scripts/setup-systemd.sh
+
+# Linux/macOS with cron
+./scripts/setup-cron.sh
+
+# Docker with scheduler (cross-platform)
+docker compose -f docker-compose.scheduled.yml up -d
+```
+
+📖 **[Complete Scheduling Guide →](SCHEDULING.md)** - Covers all scheduling methods, troubleshooting, and best practices
 
 ## API Endpoints Used
 

@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Scheduled daily check using ofelia scheduler
+  hibp-scheduler:
+    image: mcuadros/ofelia:latest
+    container_name: hibp-scheduler
+    depends_on:
+      - hibp-worker
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      ofelia.enabled: "true"
+
+  # Worker container that runs the checks
+  hibp-worker:
+    image: ghcr.io/greogory/hibp-checker:latest
+    container_name: hibp-worker
+    environment:
+      - HIBP_API_KEY=${HIBP_API_KEY}
+    volumes:
+      - ./my_emails.txt:/app/data/my_emails.txt:ro
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    labels:
+      # Run daily at 3 AM
+      ofelia.job-exec.hibp-daily.schedule: "0 3 * * *"
+      ofelia.job-exec.hibp-daily.command: "python3 hibp_comprehensive_checker.py --email-file /app/data/my_emails.txt -o text -v"
+      ofelia.job-exec.hibp-daily.no-overlap: "true"
+    # Keep container running
+    command: tail -f /dev/null
+
+  # Alternative: Weekly check on Monday at 9 AM
+  hibp-worker-weekly:
+    image: ghcr.io/greogory/hibp-checker:latest
+    container_name: hibp-worker-weekly
+    environment:
+      - HIBP_API_KEY=${HIBP_API_KEY}
+    volumes:
+      - ./my_emails.txt:/app/data/my_emails.txt:ro
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    profiles:
+      - weekly
+    labels:
+      # Run weekly on Monday at 9 AM
+      ofelia.job-exec.hibp-weekly.schedule: "0 9 * * 1"
+      ofelia.job-exec.hibp-weekly.command: "python3 hibp_comprehensive_checker.py --email-file /app/data/my_emails.txt -o text -v"
+      ofelia.job-exec.hibp-weekly.no-overlap: "true"
+    command: tail -f /dev/null

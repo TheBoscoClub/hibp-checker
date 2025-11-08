@@ -1,0 +1,20 @@
+[Unit]
+Description=HIBP Breach Checker - Weekly Monitoring
+Documentation=https://github.com/greogory/hibp-checker
+Requires=hibp-checker.service
+
+[Timer]
+# Run every Monday at 9 AM
+OnCalendar=Mon *-*-* 09:00:00
+
+# Run on boot if missed
+Persistent=yes
+
+# Randomize start time
+RandomizedDelaySec=1h
+
+# Accuracy
+AccuracySec=5min
+
+[Install]
+WantedBy=timers.target

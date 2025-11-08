@@ -1,0 +1,21 @@
+[Unit]
+Description=HIBP Breach Checker - Scheduled Monitoring
+Documentation=https://github.com/greogory/hibp-checker
+Requires=hibp-checker.service
+
+[Timer]
+# Run daily at 3 AM
+OnCalendar=daily
+OnCalendar=*-*-* 03:00:00
+
+# Run on boot if missed (e.g., computer was off)
+Persistent=yes
+
+# Randomize start time by up to 30 minutes to avoid API rate limit conflicts
+RandomizedDelaySec=30min
+
+# Ensure timer is accurate
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

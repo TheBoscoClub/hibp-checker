@@ -1,0 +1,32 @@
+[Unit]
+Description=HIBP Breach Checker
+Documentation=https://github.com/greogory/hibp-checker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=%u
+Group=%u
+WorkingDirectory=%h/claude-archive/projects/hibp-project
+
+# Environment
+Environment="HIBP_API_KEY=%E"
+EnvironmentFile=-%h/.config/hibp-checker/hibp-checker.env
+
+# Execution
+ExecStart=%h/claude-archive/projects/hibp-project/hibp_workflow.sh check
+
+# Output
+StandardOutput=append:%h/.local/share/hibp-checker/hibp-checker.log
+StandardError=append:%h/.local/share/hibp-checker/hibp-checker.error.log
+
+# Security
+PrivateTmp=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.local/share/hibp-checker %h/claude-archive/projects/hibp-project/reports %h/claude-archive/projects/hibp-project/logs
+
+[Install]
+WantedBy=default.target
