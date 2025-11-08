@@ -1,0 +1,120 @@
+name: Security Checks
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Full history for better analysis
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Check for hardcoded API keys
+      run: |
+        echo "Checking for hardcoded API keys..."
+        # Check for 32-character hex strings that might be API keys
+        if git diff HEAD~1 | grep -iE 'HIBP_API_KEY.*=.*["\047][a-f0-9]{32}["\047]'; then
+          echo "❌ ERROR: Hardcoded API key detected"
+          exit 1
+        fi
+        echo "✅ No hardcoded API keys found"
+
+    - name: Verify .gitignore integrity
+      run: |
+        echo "Verifying .gitignore protects sensitive files..."
+
+        # Critical files that must be in .gitignore
+        REQUIRED_IGNORES=(
+          "hibp_config.conf"
+          "my_emails.txt"
+          "hibp_report_"
+          "logs/"
+          "passwords.txt"
+        )
+
+        for pattern in "${REQUIRED_IGNORES[@]}"; do
+          if ! grep -q "$pattern" .gitignore; then
+            echo "❌ ERROR: .gitignore missing protection for: $pattern"
+            exit 1
+          fi
+        done
+
+        echo "✅ .gitignore integrity verified"
+
+    - name: Check for sensitive data in commits
+      run: |
+        echo "Scanning for sensitive data patterns..."
+
+        # Check for email addresses (exclude examples and documentation)
+        if git diff HEAD~1 -- "*.sh" "*.py" "*.conf" | grep -E '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}' | grep -v "example.com" | grep -v "@company.com" | grep -v "user@" | grep -v "#.*@"; then
+          echo "⚠️  WARNING: Email addresses found in code (verify they are examples)"
+        fi
+
+        echo "✅ Sensitive data scan complete"
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests safety
+
+    - name: Check Python dependencies for vulnerabilities
+      run: |
+        echo "Checking dependencies for known vulnerabilities..."
+        safety check --json || echo "⚠️  Warning: Vulnerabilities found, review manually"
+
+    - name: Verify no reports committed
+      run: |
+        echo "Checking for accidentally committed reports..."
+        if git ls-files | grep -E 'hibp_report.*\.(txt|json|csv)$'; then
+          echo "❌ ERROR: Report files committed to repository"
+          exit 1
+        fi
+        echo "✅ No report files found in repository"
+
+    - name: Check for logging sensitive data
+      run: |
+        echo "Checking for dangerous logging patterns..."
+
+        # Check for logging API keys or emails
+        if git diff HEAD~1 -- "*.py" "*.sh" | grep -iE '(print|echo|log|logger).*\$?(HIBP_)?API_KEY'; then
+          echo "❌ ERROR: Code appears to log API keys"
+          exit 1
+        fi
+
+        echo "✅ No sensitive data logging detected"
+
+    - name: Verify script permissions
+      run: |
+        echo "Checking script permissions..."
+
+        # Verify shell scripts are executable
+        for script in *.sh; do
+          if [ -f "$script" ] && [ ! -x "$script" ]; then
+            echo "⚠️  WARNING: $script is not executable"
+          fi
+        done
+
+        echo "✅ Script permissions checked"
+
+    - name: Security scan summary
+      if: always()
+      run: |
+        echo "=========================================="
+        echo "Security Scan Complete"
+        echo "=========================================="
+        echo "Repository: ${{ github.repository }}"
+        echo "Branch: ${{ github.ref_name }}"
+        echo "Commit: ${{ github.sha }}"
+        echo "=========================================="

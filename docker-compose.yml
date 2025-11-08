@@ -31,3 +31,22 @@ services:
     profiles:
       - oneshot
     command: python3 hibp_comprehensive_checker.py -e ${EMAIL} -o text -v
+
+  # Web Dashboard (NEW in v2.0)
+  dashboard:
+    image: ghcr.io/greogory/hibp-checker:latest
+    container_name: hibp-dashboard
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount reports (read-only)
+      - ./reports:/app/reports:ro
+      # Mount logs (read-only)
+      - ./logs:/app/logs:ro
+      # Optional: Mount systemd logs if using Linux
+      # - ~/.local/share/hibp-checker:/app/systemd-logs:ro
+    working_dir: /app/dashboard
+    command: python3 app.py
+    restart: unless-stopped
+    profiles:
+      - dashboard

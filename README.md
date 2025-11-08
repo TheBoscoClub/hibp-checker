@@ -35,9 +35,10 @@ This project uses data from **Have I Been Pwned**, licensed under [Creative Comm
 
 ---
 
+**Version**: 2.0.0 | **License**: MIT | **Data**: CC BY 4.0 (HIBP)
 **Platform**: Linux (native) | Windows/macOS (Docker) | [Windows/WSL2 guide](WINDOWS_INSTALL.md) | [Docker guide](DOCKER.md)
-**Dependencies**: Python 3.6+, bash, requests library, **HIBP API subscription**
-**Claude Code**: Optional (works standalone)
+**Dependencies**: Python 3.6+, Flask 2.0+, requests, bash, **HIBP API subscription**
+**NEW in v2.0**: 📊 Web Dashboard - [Guide](DASHBOARD_GUIDE.md)
 
 ## Quick Start Options
 
@@ -69,14 +70,26 @@ This tool is **completely standalone** and does not require Claude Code to run. 
 
 ## Key Features
 
+### 🔍 Breach Monitoring
 - **Comprehensive Breach Analysis**: Identifies all breaches with detailed categorization
 - **Password Exposure Detection**: Tracks which breaches exposed passwords and their storage format (plaintext, MD5, bcrypt, etc.)
 - **Stealer Log Mining**: Queries HIBP's stealer log data (including credential stuffing compilations like Synthient)
 - **Critical Site Identification**: Flags compromises on banking, cloud, and authentication services
 - **Pwned Password Checking**: Validates passwords against 900+ million compromised credentials
+- **Multiple Email Support**: Monitor unlimited email addresses with a single configuration
+
+### 📊 Web Dashboard (NEW in v2.0)
+- **Real-time Statistics**: View total scans, breaches, and password exposures at a glance
+- **Report Browser**: Browse and filter all breach reports with detailed information
+- **Log Viewer**: Monitor workflow, systemd, and error logs in real-time
+- **Auto-Refresh**: Dashboard updates every 60 seconds automatically
+- **Modern UI**: Clean, responsive interface with color-coded severity levels
+- **Cross-Platform**: Works on Linux, Windows, and macOS
+
+### ⚙️ Automation & Integration
+- **Automated Scheduling**: Systemd timers (Linux) or Docker scheduling (Windows/macOS)
 - **Multi-format Reporting**: JSON, CSV, and human-readable text reports
 - **Standalone Operation**: Works entirely from command line, no external tools required
-- **Multiple Email Support**: Monitor unlimited email addresses with a single configuration
 - **Optional Claude Code Integration**: Can be used with Claude Code CLI for enhanced automation
 
 ## Multiple Email Address Setup
@@ -369,6 +382,34 @@ SLACK_WEBHOOK="https://hooks.slack.com/services/..."
 2. Value set in `hibp_config.conf`
 
 ## Usage
+
+### 📊 Web Dashboard (Recommended)
+
+**NEW in v2.0!** Access your breach reports through a modern web interface:
+
+```bash
+# Linux - Start dashboard
+cd dashboard
+./start-dashboard.sh
+
+# Or use systemd (auto-starts on boot)
+systemctl --user enable --now hibp-dashboard.service
+
+# Windows/macOS - Use Docker
+docker-compose up dashboard
+
+# Access dashboard
+Open browser to: http://127.0.0.1:5000
+```
+
+**Dashboard Features:**
+- View all breach reports with color-coded severity
+- Real-time statistics and charts
+- Log viewer for debugging
+- Auto-refresh every 60 seconds
+- Download reports for offline viewing
+
+📖 **[Complete Dashboard Guide →](DASHBOARD_GUIDE.md)**
 
 ### Command Line (Direct)
 

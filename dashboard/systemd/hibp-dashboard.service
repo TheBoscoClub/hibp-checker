@@ -1,0 +1,22 @@
+[Unit]
+Description=HIBP Dashboard Web Server
+Documentation=https://github.com/greogory/hibp-checker
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/claude-archive/projects/hibp-project/dashboard
+ExecStart=/usr/bin/python3 %h/claude-archive/projects/hibp-project/dashboard/app.py
+Restart=on-failure
+RestartSec=5
+
+# Output
+StandardOutput=append:%h/.local/share/hibp-checker/dashboard.log
+StandardError=append:%h/.local/share/hibp-checker/dashboard.error.log
+
+# Security
+PrivateTmp=yes
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

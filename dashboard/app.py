@@ -1,0 +1,193 @@
+#!/usr/bin/env python3
+"""
+HIBP Dashboard - Web Interface for Breach Reports
+A local Flask-based dashboard to view HIBP breach reports and logs
+"""
+
+from flask import Flask, render_template, jsonify, send_file
+import os
+import json
+import glob
+from datetime import datetime
+from pathlib import Path
+
+app = Flask(__name__)
+
+# Configuration
+BASE_DIR = Path(__file__).parent.parent
+REPORTS_DIR = BASE_DIR / 'reports'
+LOGS_DIR = BASE_DIR / 'logs'
+SYSTEMD_LOG_DIR = Path.home() / '.local/share/hibp-checker'
+
+def parse_text_report(filepath):
+    """Parse a text-based HIBP report"""
+    try:
+        with open(filepath, 'r') as f:
+            content = f.read()
+
+        # Extract summary data
+        summary = {
+            'filename': os.path.basename(filepath),
+            'filepath': str(filepath),
+            'timestamp': datetime.fromtimestamp(os.path.getmtime(filepath)).isoformat(),
+            'size': os.path.getsize(filepath),
+            'total_breaches': 0,
+            'password_exposures': 0,
+            'stealer_logs': 0,
+            'critical_sites': 0,
+            'paste_exposures': 0,
+            'emails_checked': []
+        }
+
+        # Parse summary section
+        lines = content.split('\n')
+        for i, line in enumerate(lines):
+            if 'Total Breaches:' in line:
+                summary['total_breaches'] = int(line.split(':')[1].strip())
+            elif 'Password Exposures:' in line:
+                summary['password_exposures'] = int(line.split(':')[1].strip())
+            elif 'Stealer Log Hits:' in line:
+                summary['stealer_logs'] = int(line.split(':')[1].strip())
+            elif 'Critical Sites Compromised:' in line:
+                summary['critical_sites'] = int(line.split(':')[1].strip())
+            elif 'Paste Exposures:' in line:
+                summary['paste_exposures'] = int(line.split(':')[1].strip())
+            elif line.startswith('EMAIL:'):
+                email = line.replace('EMAIL:', '').strip()
+                if email not in summary['emails_checked']:
+                    summary['emails_checked'].append(email)
+
+        summary['content'] = content
+        summary['severity'] = 'critical' if summary['password_exposures'] > 0 or summary['critical_sites'] > 0 else 'warning' if summary['total_breaches'] > 0 else 'clean'
+
+        return summary
+    except Exception as e:
+        return {
+            'filename': os.path.basename(filepath),
+            'error': str(e),
+            'severity': 'error'
+        }
+
+def get_all_reports():
+    """Get all HIBP reports"""
+    reports = []
+
+    # Get text reports
+    for report_file in glob.glob(str(REPORTS_DIR / '*.txt')):
+        report = parse_text_report(report_file)
+        reports.append(report)
+
+    # Sort by timestamp (newest first)
+    reports.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+
+    return reports
+
+def get_log_content(log_type='workflow'):
+    """Get log file content"""
+    log_files = {
+        'workflow': LOGS_DIR / 'hibp_workflow.log',
+        'systemd': SYSTEMD_LOG_DIR / 'hibp-checker.log',
+        'error': SYSTEMD_LOG_DIR / 'hibp-checker.error.log'
+    }
+
+    log_file = log_files.get(log_type)
+    if log_file and log_file.exists():
+        try:
+            with open(log_file, 'r') as f:
+                # Get last 500 lines
+                lines = f.readlines()
+                return ''.join(lines[-500:])
+        except Exception as e:
+            return f"Error reading log: {str(e)}"
+    return "Log file not found"
+
+@app.route('/')
+def index():
+    """Main dashboard page"""
+    return render_template('index.html')
+
+@app.route('/api/reports')
+def api_reports():
+    """API endpoint to get all reports"""
+    reports = get_all_reports()
+
+    # Calculate summary stats
+    total_breaches = sum(r.get('total_breaches', 0) for r in reports)
+    total_password_exposures = sum(r.get('password_exposures', 0) for r in reports)
+
+    return jsonify({
+        'reports': reports,
+        'summary': {
+            'total_reports': len(reports),
+            'latest_scan': reports[0]['timestamp'] if reports else None,
+            'total_breaches_found': total_breaches,
+            'total_password_exposures': total_password_exposures
+        }
+    })
+
+@app.route('/api/report/<filename>')
+def api_report_detail(filename):
+    """API endpoint to get detailed report"""
+    filepath = REPORTS_DIR / filename
+    if filepath.exists():
+        report = parse_text_report(filepath)
+        return jsonify(report)
+    return jsonify({'error': 'Report not found'}), 404
+
+@app.route('/api/logs/<log_type>')
+def api_logs(log_type):
+    """API endpoint to get log content"""
+    content = get_log_content(log_type)
+    return jsonify({'content': content, 'type': log_type})
+
+@app.route('/api/stats')
+def api_stats():
+    """API endpoint for dashboard statistics"""
+    reports = get_all_reports()
+
+    # Calculate various statistics
+    stats = {
+        'total_scans': len(reports),
+        'latest_scan': reports[0]['timestamp'] if reports else None,
+        'total_breaches': 0,
+        'total_password_exposures': 0,
+        'total_stealer_logs': 0,
+        'total_critical_sites': 0,
+        'severity_breakdown': {
+            'critical': 0,
+            'warning': 0,
+            'clean': 0,
+            'error': 0
+        },
+        'recent_scans': []
+    }
+
+    for report in reports[:10]:  # Last 10 scans
+        stats['total_breaches'] += report.get('total_breaches', 0)
+        stats['total_password_exposures'] += report.get('password_exposures', 0)
+        stats['total_stealer_logs'] += report.get('stealer_logs', 0)
+        stats['total_critical_sites'] += report.get('critical_sites', 0)
+
+        severity = report.get('severity', 'error')
+        stats['severity_breakdown'][severity] += 1
+
+        stats['recent_scans'].append({
+            'filename': report['filename'],
+            'timestamp': report['timestamp'],
+            'breaches': report.get('total_breaches', 0),
+            'severity': severity
+        })
+
+    return jsonify(stats)
+
+@app.route('/download/<filename>')
+def download_report(filename):
+    """Download a report file"""
+    filepath = REPORTS_DIR / filename
+    if filepath.exists():
+        return send_file(filepath, as_attachment=True)
+    return "File not found", 404
+
+if __name__ == '__main__':
+    # Run on localhost only for security
+    app.run(host='127.0.0.1', port=5000, debug=False)

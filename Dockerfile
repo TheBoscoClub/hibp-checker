@@ -23,7 +23,8 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip install --no-cache-dir requests
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Create app directory
 WORKDIR /app
@@ -35,8 +36,11 @@ COPY quick_start.sh .
 COPY hibp_config.conf.example hibp_config.conf.example
 COPY my_emails_template.txt my_emails_template.txt
 
+# Copy dashboard files
+COPY dashboard/ ./dashboard/
+
 # Make scripts executable
-RUN chmod +x hibp_workflow.sh quick_start.sh hibp_comprehensive_checker.py
+RUN chmod +x hibp_workflow.sh quick_start.sh hibp_comprehensive_checker.py dashboard/start-dashboard.sh dashboard/start-dashboard-macos.sh
 
 # Create directories for reports and logs
 RUN mkdir -p /app/reports /app/logs /app/data
