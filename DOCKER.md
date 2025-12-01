@@ -14,6 +14,8 @@ This tool uses data from **[Have I Been Pwned](https://haveibeenpwned.com)** by 
 
 The HIBP Checker Docker image provides **cross-platform support** for Windows and macOS users, eliminating the need for bash installation and Python environment setup.
 
+> **Note**: Windows and macOS support via Docker is provided but **untested by the maintainer** (no native dev environment available). The image is built on Linux and should work on all platforms with Docker installed. Community feedback and issue reports are welcome!
+
 ### Why Use Docker?
 
 - ✅ **Cross-platform**: Works on Windows, macOS, and Linux

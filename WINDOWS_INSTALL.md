@@ -14,6 +14,8 @@ This tool uses data from **[Have I Been Pwned](https://haveibeenpwned.com)** by 
 
 This guide provides detailed instructions for running the HIBP Comprehensive Breach Checker on Windows using either WSL2 (recommended) or Docker.
 
+> **Note**: Windows support (both WSL2 and Docker) is provided but **untested by the maintainer** (no Windows dev environment available). These instructions are based on standard Windows/WSL2/Docker documentation. Community feedback and issue reports are welcome!
+
 ## Table of Contents
 
 - [Option 1: WSL2 (Recommended)](#option-1-wsl2-recommended)

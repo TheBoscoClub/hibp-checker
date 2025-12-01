@@ -214,12 +214,17 @@ Our tool specifically queries the stealer log API endpoints to identify where yo
 
 ## System Requirements
 
+### Native Installation (Linux)
 - **Operating System**: Linux (tested on CachyOS/Arch, should work on Debian/Ubuntu/Fedora)
 - **Python**: 3.6 or higher
 - **Shell**: Bash 4.0+
 - **Dependencies**: `python3`, `requests` library
 
-> **Note**: This tool is designed specifically for Linux. It will not work on Windows or macOS without modifications due to bash-specific features and script structure.
+### Docker Installation (Linux, Windows, macOS)
+- **Docker**: 20.10+ with Docker Compose
+- **No other dependencies required** - everything runs in the container
+
+> **Note**: Native installation is Linux-only. Windows and macOS users should use Docker (see [Docker Guide](DOCKER.md)). Docker support for Windows/macOS is provided but untested by the maintainer.
 
 ## Installation
 
@@ -647,27 +652,36 @@ ENTRYPOINT ["python3", "/app/hibp_comprehensive_checker.py"]
 
 ## Platform Compatibility
 
-### Linux ✅
+### Linux ✅ (Native)
 Fully supported and tested on:
 - CachyOS (Arch-based)
 - Ubuntu/Debian
 - Fedora/RHEL
 - Other Linux distributions with bash 4.0+
 
-### macOS ❌
-Not currently supported due to:
-- Bash-specific features (requires bash 4.0+, macOS ships with bash 3.2)
-- Linux-specific command options
-- Path and process handling differences
+### Windows 🐳 (Docker)
+Supported via Docker. Not tested natively by the maintainer (no Windows dev environment).
 
-**Workaround**: Use Docker with a Linux-based image or run in a Linux VM
+```bash
+docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/greogory/hibp-checker:latest \
+  python3 hibp_comprehensive_checker.py -e email@example.com -o text
+```
 
-### Windows ❌
-Not supported natively. The bash scripts require a Linux environment.
+**Alternative**: WSL2 (Windows Subsystem for Linux) for native-like experience.
 
-**Workaround**: Use WSL2 (Windows Subsystem for Linux) or Docker
+📖 **[Windows Installation Guide](WINDOWS_INSTALL.md)** | **[Docker Guide](DOCKER.md)**
 
-📖 **[See detailed Windows installation guide](WINDOWS_INSTALL.md)**
+### macOS 🐳 (Docker)
+Supported via Docker. Not tested natively by the maintainer (no macOS dev environment).
+
+```bash
+docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/greogory/hibp-checker:latest \
+  python3 hibp_comprehensive_checker.py -e email@example.com -o text
+```
+
+📖 **[Docker Guide](DOCKER.md)**
+
+> **Note**: Windows and macOS support via Docker should work but is untested by the maintainer. Community feedback and contributions welcome!
 
 ## License
 
