@@ -30,8 +30,13 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PYTHON_SCRIPT="${SCRIPT_DIR}/hibp_comprehensive_checker.py"
 CONFIG_FILE="${SCRIPT_DIR}/hibp_config.conf"
-LOG_DIR="${SCRIPT_DIR}/logs"
-REPORT_DIR="${SCRIPT_DIR}/reports"
+
+# XDG-compliant data directories (separates runtime data from code)
+# Override with HIBP_DATA_DIR for custom locations (e.g., Docker: /app)
+XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+DATA_DIR="${HIBP_DATA_DIR:-${XDG_DATA_HOME}/hibp-checker}"
+LOG_DIR="${DATA_DIR}/logs"
+REPORT_DIR="${DATA_DIR}/reports"
 
 # Create directories if they don't exist
 mkdir -p "$LOG_DIR" "$REPORT_DIR"
@@ -255,7 +260,7 @@ EOF
 # Track new breaches since last check
 track_new_breaches() {
     local current_results="$1"
-    local last_breach_file="${LAST_BREACH_FILE:-${SCRIPT_DIR}/.last_breach_check}"
+    local last_breach_file="${LAST_BREACH_FILE:-${DATA_DIR}/.last_breach_check}"
     local new_breaches=""
     
     if [[ -f "$last_breach_file" ]]; then

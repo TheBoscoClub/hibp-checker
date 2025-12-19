@@ -54,6 +54,7 @@ USER hibpuser
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PATH="/app:${PATH}"
+ENV HIBP_DATA_DIR=/app
 
 # Default command shows help
 CMD ["python3", "hibp_comprehensive_checker.py", "--help"]
