@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Fixed
+
+## [2.2.2] - 2025-12-24
+
+### Added
 - `bw-session-setup.sh` - Helper script to set up persistent Bitwarden session
 - Bitwarden session file support (`~/.bw_session`) for dashboard integration
 
