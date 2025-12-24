@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- `bw-hibp-stream.py` - Streaming Bitwarden password checker
+  - Reads vault items directly from `bw list items` via stdin
+  - Passwords never written to disk (memory-only processing)
+  - Multiple report formats: text, JSON, CSV
+  - Risk level classification: Critical, High, Medium, Low
+  - `--compromised-only` flag to filter results
+  - Rate-limited API requests (100ms delay)
+
+### Documentation
+- Added Bitwarden Password Checking section to README
+- Documented both streaming and file-based approaches
+
 ## [2.0.1] - 2025-11-24
 
 ### Added

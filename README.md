@@ -460,6 +460,52 @@ claude-code run ./hibp_workflow.sh schedule
 
 **Note**: Claude Code is completely optional. All commands work standalone without it by simply running `./hibp_workflow.sh` directly.
 
+### 🔐 Bitwarden Password Checking
+
+Check your Bitwarden vault passwords against HIBP without creating files on disk.
+
+#### Option A: Streaming (Recommended - Most Secure)
+
+Passwords never touch disk - streamed directly from Bitwarden CLI:
+
+```bash
+# Ensure Bitwarden CLI is unlocked
+bw login && bw unlock
+export BW_SESSION='your-session-key'
+
+# Stream and check (progress to stderr, report to stdout)
+bw list items | python bw-hibp-stream.py
+
+# Generate JSON report
+bw list items | python bw-hibp-stream.py --report json --output ~/audit.json
+
+# CSV report, quiet mode
+bw list items | python bw-hibp-stream.py -r csv -q > ~/audit.csv
+
+# Only show compromised passwords
+bw list items | python bw-hibp-stream.py --compromised-only
+```
+
+**Features:**
+- No plaintext file ever created - passwords exist only in memory
+- Three report formats: text, JSON, CSV
+- Risk levels: Critical (1000+), High (100+), Medium (10+), Low
+- Rate-limited (100ms between requests)
+
+#### Option B: JSON Export (If CLI streaming unavailable)
+
+```bash
+# Export from Bitwarden
+bw export --format json --output ~/vault-export.json
+
+# Check passwords
+python check-bitwarden-passwords.py ~/vault-export.json
+
+# Script will offer to delete the export file when done
+```
+
+> **Security Note**: The streaming option (A) is preferred because passwords never exist as a file on disk.
+
 ### Automation Workflow
 
 ```bash
