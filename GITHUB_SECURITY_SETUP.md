@@ -143,7 +143,7 @@ The security-checks.yml workflow needs to be manually added due to token permiss
 
 2. **Push Workflow File**
    ```bash
-   cd ~/claude-archive/projects/hibp-project/
+   cd <project-directory>/
    git add .github/workflows/security-checks.yml
    git commit -m "Add automated security checks workflow"
    git push
@@ -206,7 +206,7 @@ Set up advanced code scanning for additional security.
 
 Try to push directly to main (should fail):
 ```bash
-cd ~/claude-archive/projects/hibp-project/
+cd <project-directory>/
 echo "test" >> README.md
 git add README.md
 git commit -m "test direct push"

@@ -8,10 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `bw-session-setup.sh` - Helper script to set up persistent Bitwarden session
+- Bitwarden session file support (`~/.bw_session`) for dashboard integration
 
 ### Changed
+- **Generic Installation Paths**: All hardcoded paths replaced with dynamic detection
+  - Systemd services now use `HIBP_PROJECT_DIR` placeholder (auto-configured by setup script)
+  - Shell scripts use `SCRIPT_DIR` for self-location
+  - Documentation updated to use `<project-directory>` placeholder
+- `scripts/setup-systemd.sh` now auto-configures paths and installs dashboard service
+- `bitwarden_checker.py` reads BW_SESSION from `~/.bw_session` as fallback
+- `start-dashboard.sh` and `launch-dashboard.sh` source BW_SESSION from file
 
 ### Fixed
+- Dashboard now works for any user regardless of installation location
+- Bitwarden integration works without manually exporting BW_SESSION each session
+
+### Documentation
+- All documentation updated to use generic paths instead of hardcoded locations
+- Added instructions for `bw-session-setup.sh` usage
 
 ## [2.2.0] - 2025-12-24
 

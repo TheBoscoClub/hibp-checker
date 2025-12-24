@@ -7,6 +7,11 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 
+# Source BW_SESSION from persistent file if it exists
+if [[ -f "$HOME/.bw_session" ]]; then
+    export BW_SESSION=$(cat "$HOME/.bw_session")
+fi
+
 # Check if Flask is installed
 if ! python3 -c "import flask" 2>/dev/null; then
     echo "Flask is not installed. Installing..."

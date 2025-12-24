@@ -50,12 +50,34 @@ class BitwardenTask:
 
 
 class BitwardenChecker:
+    # Path to persistent session file
+    SESSION_FILE = Path.home() / '.bw_session'
+
     def __init__(self, base_dir: Path):
         self.base_dir = base_dir
         self.reports_dir = base_dir / 'reports' / 'bitwarden'
         self.reports_dir.mkdir(parents=True, exist_ok=True)
         self.active_tasks: Dict[str, BitwardenTask] = {}
         self.lock = threading.Lock()
+
+    def _get_session(self) -> Optional[str]:
+        """Get BW_SESSION from environment or persistent file."""
+        # First check environment variable
+        session = os.environ.get('BW_SESSION')
+        if session:
+            return session
+
+        # Fall back to session file
+        if self.SESSION_FILE.exists():
+            try:
+                session = self.SESSION_FILE.read_text().strip()
+                if session:
+                    # Also set in environment for subprocess calls
+                    os.environ['BW_SESSION'] = session
+                    return session
+            except Exception:
+                pass
+        return None
 
     def check_prerequisites(self) -> Dict[str, Any]:
         """Check if Bitwarden CLI and session are available."""
@@ -66,11 +88,11 @@ class BitwardenChecker:
             'errors': []
         }
 
-        # Check BW_SESSION env var
-        if os.environ.get('BW_SESSION'):
+        # Check BW_SESSION (env var or session file)
+        if self._get_session():
             result['bw_session_set'] = True
         else:
-            result['errors'].append('BW_SESSION environment variable not set. Run: export BW_SESSION=$(bw unlock --raw)')
+            result['errors'].append(f'BW_SESSION not found. Run: bw unlock --raw > ~/.bw_session')
 
         # Check bw CLI
         try:

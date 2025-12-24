@@ -17,7 +17,7 @@ A local web dashboard for viewing Have I Been Pwned breach reports and monitorin
 ### Manual Start
 
 ```bash
-cd ~/claude-archive/projects/hibp-project/dashboard
+cd <project-directory>/dashboard
 ./start-dashboard.sh
 ```
 
@@ -85,7 +85,7 @@ Make sure you're accessing `http://127.0.0.1:5000` (not localhost or other IPs)
 
 Verify reports exist in:
 ```bash
-ls -lh ~/claude-archive/projects/hibp-project/reports/
+ls -lh <project-directory>/reports/
 ```
 
 ## Customization

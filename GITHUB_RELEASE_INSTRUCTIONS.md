@@ -27,7 +27,7 @@ ee30bf4f5310dbaa424694cc337058abfc519026d54046fc134a4826e89474ca  hibp-checker-v
 First, push the commit and tag to GitHub:
 
 ```bash
-cd ~/claude-archive/projects/hibp-project
+cd <project-directory>
 
 # Push the commit
 git push origin main

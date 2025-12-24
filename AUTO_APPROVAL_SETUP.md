@@ -102,7 +102,7 @@ gh auth refresh -h github.com -s workflow
 Then:
 
 ```bash
-cd ~/claude-archive/projects/hibp-project
+cd <project-directory>
 
 # Create a branch for this change
 git checkout -b setup-auto-approval

@@ -45,7 +45,7 @@ Choose the method that best fits your environment.
 ### Quick Setup
 
 ```bash
-cd ~/claude-archive/projects/hibp-project
+cd <project-directory>
 ./scripts/setup-systemd.sh
 ```
 
@@ -161,7 +161,7 @@ systemctl --user restart hibp-checker.timer
 ### Quick Setup
 
 ```bash
-cd ~/claude-archive/projects/hibp-project
+cd <project-directory>
 ./scripts/setup-cron.sh
 ```
 
@@ -239,7 +239,7 @@ tail -f ~/.local/share/hibp-checker/hibp-checker.error.log
 Test the cron wrapper script manually:
 
 ```bash
-~/claude-archive/projects/hibp-project/scripts/hibp-cron-wrapper.sh
+<project-directory>/scripts/hibp-cron-wrapper.sh
 ```
 
 ### Troubleshooting
@@ -260,7 +260,7 @@ Test the cron wrapper script manually:
 
 3. Verify the wrapper script is executable:
    ```bash
-   ls -l ~/claude-archive/projects/hibp-project/scripts/hibp-cron-wrapper.sh
+   ls -l <project-directory>/scripts/hibp-cron-wrapper.sh
    ```
 
 4. Test the wrapper script manually to check for errors
@@ -597,10 +597,10 @@ docker logs --tail 50 hibp-worker
 **Solutions**:
 ```bash
 # Fix ownership
-chown -R $USER:$USER ~/claude-archive/projects/hibp-project/
+chown -R $USER:$USER <project-directory>/
 
 # Fix permissions
-chmod -R u+rwX ~/claude-archive/projects/hibp-project/
+chmod -R u+rwX <project-directory>/
 ```
 
 ### Jobs Not Running

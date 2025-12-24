@@ -29,7 +29,7 @@
 
 3. **Push the images:**
    ```bash
-   cd ~/claude-archive/projects/hibp-project
+   cd <project-directory>
 
    # Push v2.0.0 tag
    docker push ghcr.io/greogory/hibp-checker:2.0.0
@@ -55,7 +55,7 @@ The repository already has a GitHub Actions workflow that can build and push Doc
 If you've lost the local image:
 
 ```bash
-cd ~/claude-archive/projects/hibp-project
+cd <project-directory>
 
 # Rebuild
 docker build -t ghcr.io/greogory/hibp-checker:2.0.0 \

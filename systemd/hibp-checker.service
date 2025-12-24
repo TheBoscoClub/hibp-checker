@@ -8,7 +8,10 @@ Wants=network-online.target
 Type=oneshot
 User=%u
 Group=%u
-WorkingDirectory=/raid0/ClaudeCodeProjects/hibp-project
+
+# IMPORTANT: Update this path to your hibp-project installation directory
+# Example: WorkingDirectory=%h/hibp-project
+WorkingDirectory=HIBP_PROJECT_DIR
 
 # Environment
 Environment="HIBP_API_KEY=%E"
@@ -18,9 +21,11 @@ EnvironmentFile=-%h/.config/hibp-checker/hibp-checker.env
 # Exit codes: 0=no breaches, 1=breaches found, 2=critical (password exposed)
 # All are valid outcomes, not failures
 SuccessExitStatus=1 2
-ExecStart=/raid0/ClaudeCodeProjects/hibp-project/hibp_workflow.sh check
 
-# Output
+# IMPORTANT: Update this path to match WorkingDirectory
+ExecStart=HIBP_PROJECT_DIR/hibp_workflow.sh check
+
+# Output (XDG-compliant location)
 StandardOutput=append:%h/.local/share/hibp-checker/hibp-checker.log
 StandardError=append:%h/.local/share/hibp-checker/hibp-checker.error.log
 
@@ -29,7 +34,7 @@ PrivateTmp=yes
 NoNewPrivileges=yes
 ProtectSystem=strict
 ProtectHome=read-only
-ReadWritePaths=%h/.local/share/hibp-checker /raid0/ClaudeCodeProjects/hibp-project/reports /raid0/ClaudeCodeProjects/hibp-project/logs
+ReadWritePaths=%h/.local/share/hibp-checker
 
 [Install]
 WantedBy=default.target

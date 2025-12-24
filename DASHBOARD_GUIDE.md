@@ -72,18 +72,18 @@ tail -f ~/.local/share/hibp-checker/dashboard.log
 ## 📁 File Locations
 
 ### Reports
-- **Location:** `~/claude-archive/projects/hibp-project/reports/`
+- **Location:** `<project-directory>/reports/`
 - **Format:** `hibp_report_YYYYMMDD_HHMMSS.txt`
 
 ### Logs
-- **Workflow logs:** `~/claude-archive/projects/hibp-project/logs/`
+- **Workflow logs:** `<project-directory>/logs/`
 - **Systemd logs:** `~/.local/share/hibp-checker/`
 - **Dashboard logs:** `~/.local/share/hibp-checker/dashboard.log`
 
 ### Configuration
-- **Main config:** `~/claude-archive/projects/hibp-project/hibp_config.conf`
+- **Main config:** `<project-directory>/hibp_config.conf`
 - **API key:** `~/.config/hibp-checker/hibp-checker.env`
-- **Email list:** `~/claude-archive/projects/hibp-project/my_emails.txt`
+- **Email list:** `<project-directory>/my_emails.txt`
 
 ## 🔄 Automation Schedule
 
@@ -115,7 +115,7 @@ systemctl --user restart hibp-dashboard.service
 ### No reports showing
 ```bash
 # Verify reports exist
-ls -lh ~/claude-archive/projects/hibp-project/reports/
+ls -lh <project-directory>/reports/
 
 # Run manual scan
 systemctl --user start hibp-checker.service
@@ -127,7 +127,7 @@ systemctl --user start hibp-checker.service
 cat ~/.config/hibp-checker/hibp-checker.env
 
 # Test API key manually
-python3 ~/claude-archive/projects/hibp-project/hibp_comprehensive_checker.py \
+python3 <project-directory>/hibp_comprehensive_checker.py \
     -k $(grep HIBP_API_KEY ~/.config/hibp-checker/hibp-checker.env | cut -d= -f2) \
     -e test@example.com -o text
 ```
@@ -142,7 +142,7 @@ While the dashboard is localhost-only, you can:
 ## 🎨 Dashboard Customization
 
 To change the refresh interval, edit:
-`~/claude-archive/projects/hibp-project/dashboard/templates/index.html`
+`<project-directory>/dashboard/templates/index.html`
 
 Find the line:
 ```javascript
@@ -150,7 +150,7 @@ setInterval(() => { ... }, 60000);  // 60000 = 60 seconds
 ```
 
 To change the port, edit:
-`~/claude-archive/projects/hibp-project/dashboard/app.py`
+`<project-directory>/dashboard/app.py`
 
 Change:
 ```python
@@ -168,4 +168,4 @@ Notification settings in `hibp_config.conf`:
 
 ---
 
-**Need Help?** Check the main README at `~/claude-archive/projects/hibp-project/README.md`
+**Need Help?** Check the main README at `<project-directory>/README.md`

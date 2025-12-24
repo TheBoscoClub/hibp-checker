@@ -9,7 +9,7 @@ This tool uses data from **[Have I Been Pwned](https://haveibeenpwned.com)** by 
 ---
 
 **Date**: 2025-11-07
-**Location**: `~/claude-archive/projects/hibp-project/`
+**Location**: `<project-directory>/`
 **Platform**: Linux only (CachyOS/Arch Linux tested)
 **Claude Code Required**: No (completely standalone)
 
@@ -84,7 +84,7 @@ SAVE_REPORTS=true
 ```
 
 ### Email Configuration
-- **File**: `~/claude-archive/projects/hibp-project/my_emails.txt`
+- **File**: `<project-directory>/my_emails.txt`
 - **Count**: 30 email addresses configured
 - **Format**: One email per line, comments supported with `#`
 
@@ -111,7 +111,7 @@ SAVE_REPORTS=true
 
 #### Check All Configured Emails
 ```bash
-cd ~/claude-archive/projects/hibp-project/
+cd <project-directory>/
 ./hibp_workflow.sh check
 ```
 
@@ -142,8 +142,8 @@ python3 hibp_comprehensive_checker.py -k [API_KEY] -e email1@example.com email2@
 ### Generated Files
 Reports are saved to the project directory:
 - Format: `hibp_report_YYYYMMDD_HHMMSS.txt`
-- Location: `~/claude-archive/projects/hibp-project/`
-- Also saved to: `~/claude-archive/projects/hibp-project/reports/` (if configured)
+- Location: `<project-directory>/`
+- Also saved to: `<project-directory>/reports/` (if configured)
 
 ### Report Contents
 1. **Summary**: Total counts for breaches, exposures, stealer logs, pastes
@@ -205,7 +205,7 @@ esac
 
 1. **Run Full Scan**
    ```bash
-   cd ~/claude-archive/projects/hibp-project/
+   cd <project-directory>/
    ./hibp_workflow.sh check > scan_results_$(date +%Y%m%d).log 2>&1
    ```
 
@@ -249,8 +249,8 @@ esac
 - Configure domain ownership at: https://haveibeenpwned.com/DomainSearch
 
 **Missing Reports**
-- Check: `~/claude-archive/projects/hibp-project/`
-- Check: `~/claude-archive/projects/hibp-project/reports/`
+- Check: `<project-directory>/`
+- Check: `<project-directory>/reports/`
 - Verify: `SAVE_REPORTS=true` in config
 
 ### Debug Mode
@@ -259,7 +259,7 @@ esac
 VERBOSE=true ./hibp_workflow.sh check
 
 # Check logs
-tail -f ~/claude-archive/projects/hibp-project/logs/hibp_workflow.log
+tail -f <project-directory>/logs/hibp_workflow.log
 ```
 
 ---

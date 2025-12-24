@@ -104,7 +104,7 @@ git config --get commit.gpgsign
 Let's test that signing works:
 
 ```bash
-cd ~/claude-archive/projects/hibp-project/
+cd <project-directory>/
 
 # Make a test commit
 echo "# Test" >> test-signing.txt

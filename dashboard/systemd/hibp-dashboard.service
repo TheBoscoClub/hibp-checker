@@ -5,12 +5,18 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=%h/claude-archive/projects/hibp-project/dashboard
-ExecStart=/usr/bin/python3 %h/claude-archive/projects/hibp-project/dashboard/app.py
+
+# IMPORTANT: Update this path to your hibp-project/dashboard installation directory
+# Example: WorkingDirectory=%h/hibp-project/dashboard
+WorkingDirectory=HIBP_PROJECT_DIR/dashboard
+
+# IMPORTANT: Update this path to match WorkingDirectory
+ExecStart=HIBP_PROJECT_DIR/dashboard/start-dashboard.sh
+
 Restart=on-failure
 RestartSec=5
 
-# Output
+# Output (XDG-compliant location)
 StandardOutput=append:%h/.local/share/hibp-checker/dashboard.log
 StandardError=append:%h/.local/share/hibp-checker/dashboard.error.log
 

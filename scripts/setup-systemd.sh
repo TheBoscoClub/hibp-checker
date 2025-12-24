@@ -51,11 +51,21 @@ if [[ -z "${HIBP_API_KEY:-}" ]]; then
     fi
 fi
 
-# Copy service and timer files
+# Copy and configure service and timer files
 echo "Installing systemd units..."
-cp "${PROJECT_DIR}/systemd/hibp-checker.service" "$SYSTEMD_USER_DIR/"
+echo "Project directory: ${PROJECT_DIR}"
+
+# Copy service file and substitute project path
+sed "s|HIBP_PROJECT_DIR|${PROJECT_DIR}|g" "${PROJECT_DIR}/systemd/hibp-checker.service" > "$SYSTEMD_USER_DIR/hibp-checker.service"
 cp "${PROJECT_DIR}/systemd/hibp-checker.timer" "$SYSTEMD_USER_DIR/"
 cp "${PROJECT_DIR}/systemd/hibp-checker-weekly.timer" "$SYSTEMD_USER_DIR/"
+
+# Copy dashboard service if dashboard directory exists
+if [[ -d "${PROJECT_DIR}/dashboard" ]]; then
+    sed "s|HIBP_PROJECT_DIR|${PROJECT_DIR}|g" "${PROJECT_DIR}/dashboard/systemd/hibp-dashboard.service" > "$SYSTEMD_USER_DIR/hibp-dashboard.service"
+    echo -e "${GREEN}✓${NC} Dashboard service installed"
+fi
+
 echo -e "${GREEN}✓${NC} Systemd units installed"
 echo ""
 
@@ -109,6 +119,21 @@ case $choice in
         ;;
 esac
 
+# Ask about dashboard service
+if [[ -d "${PROJECT_DIR}/dashboard" ]]; then
+    echo ""
+    read -p "Enable dashboard service (always-on web interface)? [y/N] " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        systemctl --user enable hibp-dashboard.service
+        systemctl --user start hibp-dashboard.service
+        # Enable linger so dashboard runs even when logged out
+        loginctl enable-linger "$USER" 2>/dev/null || true
+        echo -e "${GREEN}✓${NC} Dashboard service enabled and started"
+        echo "   Dashboard available at: http://127.0.0.1:5000"
+    fi
+fi
+
 echo ""
 echo "================================================"
 echo "Setup Complete!"
@@ -120,6 +145,12 @@ echo "  systemctl --user list-timers"
 echo "  systemctl --user start hibp-checker.service  # Run manually"
 echo "  journalctl --user -u hibp-checker.service -f # View logs"
 echo ""
+if [[ -d "${PROJECT_DIR}/dashboard" ]]; then
+echo "Dashboard commands:"
+echo "  systemctl --user status hibp-dashboard"
+echo "  systemctl --user restart hibp-dashboard"
+echo ""
+fi
 echo "Logs are saved to:"
 echo "  ${LOG_DIR}/hibp-checker.log"
 echo "  ${LOG_DIR}/hibp-checker.error.log"
