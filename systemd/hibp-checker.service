@@ -15,6 +15,9 @@ Environment="HIBP_API_KEY=%E"
 EnvironmentFile=-%h/.config/hibp-checker/hibp-checker.env
 
 # Execution
+# Exit codes: 0=no breaches, 1=breaches found, 2=critical (password exposed)
+# All are valid outcomes, not failures
+SuccessExitStatus=1 2
 ExecStart=/raid0/ClaudeCodeProjects/hibp-project/hibp_workflow.sh check
 
 # Output

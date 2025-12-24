@@ -449,6 +449,9 @@
             <p class="subtitle">Local dashboard for Have I Been Pwned breach reports and monitoring logs</p>
         </header>
 
+        <!-- Breach Status Banner -->
+        <div id="breachStatusBanner" class="status-banner" style="display: none; margin-bottom: 20px;"></div>
+
         <div class="stats-grid" id="statsGrid">
             <div class="loading">
                 <div class="spinner"></div>
@@ -585,6 +588,24 @@
             try {
                 const response = await fetch('/api/stats');
                 const data = await response.json();
+
+                // Update breach status banner
+                const banner = document.getElementById('breachStatusBanner');
+                if (data.status_message) {
+                    banner.style.display = 'block';
+                    banner.textContent = data.status_message;
+
+                    // Set banner style based on breach status
+                    if (data.breach_status && data.breach_status.has_new_breaches) {
+                        banner.className = 'status-banner warning';
+                    } else if (data.status_message.includes('✅')) {
+                        banner.className = 'status-banner success';
+                    } else {
+                        banner.className = 'status-banner';
+                        banner.style.background = '#e2e8f0';
+                        banner.style.color = '#4a5568';
+                    }
+                }
 
                 const statsHTML = `
                     <div class="stat-card">

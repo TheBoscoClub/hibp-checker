@@ -17,9 +17,12 @@ app = Flask(__name__)
 
 # Configuration
 BASE_DIR = Path(__file__).parent.parent
-REPORTS_DIR = BASE_DIR / 'reports'
-LOGS_DIR = BASE_DIR / 'logs'
-SYSTEMD_LOG_DIR = Path.home() / '.local/share/hibp-checker'
+# XDG-compliant: reports are stored in ~/.local/share/hibp-checker/reports
+XDG_DATA_HOME = Path(os.environ.get('XDG_DATA_HOME', Path.home() / '.local/share'))
+HIBP_DATA_DIR = XDG_DATA_HOME / 'hibp-checker'
+REPORTS_DIR = HIBP_DATA_DIR / 'reports'
+LOGS_DIR = HIBP_DATA_DIR / 'logs'
+SYSTEMD_LOG_DIR = HIBP_DATA_DIR
 
 # Initialize Bitwarden checker
 bitwarden_checker = BitwardenChecker(BASE_DIR)
@@ -86,6 +89,23 @@ def get_all_reports():
     reports.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
 
     return reports
+
+
+def compare_reports(latest, previous):
+    """Compare two reports to detect new breaches"""
+    if not latest or not previous:
+        return None
+
+    latest_breaches = latest.get('total_breaches', 0)
+    previous_breaches = previous.get('total_breaches', 0)
+
+    return {
+        'has_new_breaches': latest_breaches > previous_breaches,
+        'breach_delta': latest_breaches - previous_breaches,
+        'latest_breaches': latest_breaches,
+        'previous_breaches': previous_breaches,
+        'password_exposures_delta': latest.get('password_exposures', 0) - previous.get('password_exposures', 0)
+    }
 
 def get_log_content(log_type='workflow'):
     """Get log file content"""
@@ -169,15 +189,34 @@ def api_stats():
             'clean': 0,
             'error': 0
         },
-        'recent_scans': []
+        'recent_scans': [],
+        'breach_status': None,
+        'status_message': 'No reports available'
     }
 
-    for report in reports[:10]:  # Last 10 scans
-        stats['total_breaches'] += report.get('total_breaches', 0)
-        stats['total_password_exposures'] += report.get('password_exposures', 0)
-        stats['total_stealer_logs'] += report.get('stealer_logs', 0)
-        stats['total_critical_sites'] += report.get('critical_sites', 0)
+    if not reports:
+        return jsonify(stats)
 
+    # Compare latest with previous to detect new breaches
+    if len(reports) >= 2:
+        comparison = compare_reports(reports[0], reports[1])
+        stats['breach_status'] = comparison
+
+        if comparison['has_new_breaches']:
+            stats['status_message'] = f"⚠️ {comparison['breach_delta']} new breach(es) detected since last scan"
+        else:
+            stats['status_message'] = "✅ No new breaches since last scan"
+    elif len(reports) == 1:
+        stats['status_message'] = f"First scan: {reports[0].get('total_breaches', 0)} breach(es) found"
+
+    # Get latest report stats (current state)
+    latest = reports[0]
+    stats['total_breaches'] = latest.get('total_breaches', 0)
+    stats['total_password_exposures'] = latest.get('password_exposures', 0)
+    stats['total_stealer_logs'] = latest.get('stealer_logs', 0)
+    stats['total_critical_sites'] = latest.get('critical_sites', 0)
+
+    for report in reports[:10]:  # Last 10 scans
         severity = report.get('severity', 'error')
         stats['severity_breakdown'][severity] += 1
 
