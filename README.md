@@ -1,6 +1,6 @@
 # HIBP Comprehensive Breach & Credential Stuffing Checker
 
-**Version**: 2.0.0 | **License**: MIT | **Data License**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (HIBP)
+**Version**: 2.2.2 | **License**: MIT | **Data License**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (HIBP)
 **Platform**: Linux, Windows (Docker/WSL2), macOS (Docker) | **Language**: Python 3.6+, Bash
 **Dependencies**: Python 3.6+, Flask 2.0+, requests, **HIBP API subscription required**
 **Features**: Web dashboard, systemd automation, stealer log detection, pwned password checking
@@ -40,7 +40,7 @@ This project uses data from **Have I Been Pwned**, licensed under [Creative Comm
 
 ---
 
-**Version**: 2.0.0 | **License**: MIT | **Data**: CC BY 4.0 (HIBP)
+**Version**: 2.2.2 | **License**: MIT | **Data**: CC BY 4.0 (HIBP)
 **Platform**: Linux (native) | Windows/macOS (Docker) | [Windows/WSL2 guide](WINDOWS_INSTALL.md) | [Docker guide](DOCKER.md)
 **Dependencies**: Python 3.6+, Flask 2.0+, requests, bash, **HIBP API subscription**
 **NEW in v2.0**: 📊 Web Dashboard - [Guide](DASHBOARD_GUIDE.md)
