@@ -8,10 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Added HEALTHCHECK instruction to Dockerfile for container health monitoring
 
 ### Changed
+- Removed obsolete `version` field from docker-compose.yml and docker-compose.scheduled.yml (deprecated in Compose v2)
+- Added version label (`org.opencontainers.image.version`) to Dockerfile metadata
 
 ### Fixed
+- Code quality improvements: removed trailing whitespace across multiple files
+- Added missing docstrings to test functions in test_hibp.py
 
 ## [2.2.3] - 2025-12-27
 
@@ -275,4 +280,4 @@ None at this time.
 
 ---
 
-**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.0.0
+**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.2.3

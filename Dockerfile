@@ -14,12 +14,14 @@ LABEL org.opencontainers.image.authors="Bosco <gjbr@pm.me>"
 LABEL org.opencontainers.image.source="https://github.com/greogory/hibp-checker"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.documentation="https://github.com/greogory/hibp-checker/blob/main/README.md"
+LABEL org.opencontainers.image.version="2.2.3"
 
 # Install bash and other required tools
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     bash \
     ca-certificates \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
@@ -55,6 +57,10 @@ USER hibpuser
 ENV PYTHONUNBUFFERED=1
 ENV PATH="/app:${PATH}"
 ENV HIBP_DATA_DIR=/app
+
+# Healthcheck for dashboard service
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:5000/ || exit 1
 
 # Default command shows help
 CMD ["python3", "hibp_comprehensive_checker.py", "--help"]

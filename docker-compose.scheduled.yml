@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Scheduled daily check using ofelia scheduler
   hibp-scheduler:

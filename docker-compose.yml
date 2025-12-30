@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   hibp-checker:
     image: ghcr.io/greogory/hibp-checker:latest

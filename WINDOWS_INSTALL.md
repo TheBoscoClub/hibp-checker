@@ -241,8 +241,6 @@ CMD ["bash"]
 Create `docker-compose.yml` in `C:\hibp-checker\`:
 
 ```yaml
-version: '3.8'
-
 services:
   hibp-checker:
     build: .

@@ -66,3 +66,6 @@ exit.*
 
 # Claude Code local config
 .claude/
+
+# Ruff cache
+.ruff_cache/

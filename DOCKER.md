@@ -92,8 +92,6 @@ curl -O https://raw.githubusercontent.com/greogory/hibp-checker/main/docker-comp
 Or create manually:
 
 ```yaml
-version: '3.8'
-
 services:
   hibp-checker:
     image: ghcr.io/greogory/hibp-checker:latest
@@ -370,9 +368,9 @@ docker run --rm \
 The Docker image is published with multiple tags:
 
 - `latest` - Latest stable version from main branch
-- `v1.0.1` - Specific version (semantic versioning)
-- `v1.0` - Major.minor version
-- `v1` - Major version only
+- `v2.2.3` - Specific version (semantic versioning)
+- `v2.2` - Major.minor version
+- `v2` - Major version only
 - `main` - Latest commit on main branch (may be unstable)
 - `sha-abc1234` - Specific commit SHA
 
@@ -380,7 +378,7 @@ The Docker image is published with multiple tags:
 
 **Production**: Use specific version tags
 ```bash
-docker pull ghcr.io/greogory/hibp-checker:v1.0.1
+docker pull ghcr.io/greogory/hibp-checker:v2.2.3
 ```
 
 **Testing**: Use latest
@@ -395,8 +393,6 @@ docker pull ghcr.io/greogory/hibp-checker:latest
 ### Basic Check
 
 ```yaml
-version: '3.8'
-
 services:
   hibp-check:
     image: ghcr.io/greogory/hibp-checker:latest
@@ -413,8 +409,6 @@ Run: `docker-compose up`
 ### Scheduled Monitoring
 
 ```yaml
-version: '3.8'
-
 services:
   hibp-monitor:
     image: ghcr.io/greogory/hibp-checker:latest
@@ -571,10 +565,10 @@ Avoid pulling `:latest` every time:
 
 ```bash
 # Pull once
-docker pull ghcr.io/greogory/hibp-checker:v1.0.1
+docker pull ghcr.io/greogory/hibp-checker:v2.2.3
 
 # Use specific tag
-docker run ghcr.io/greogory/hibp-checker:v1.0.1 ...
+docker run ghcr.io/greogory/hibp-checker:v2.2.3 ...
 ```
 
 ### Remove Old Containers
@@ -708,6 +702,6 @@ docker-compose up
 
 ---
 
-**Last Updated:** 2025-11-07
-**Image Version:** 1.0.1
+**Last Updated:** 2025-12-29
+**Image Version:** 2.2.3
 **Supported Platforms:** linux/amd64, linux/arm64

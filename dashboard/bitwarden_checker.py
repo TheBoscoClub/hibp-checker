@@ -12,11 +12,20 @@ import threading
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, Any
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
 
 
 class TaskStatus(Enum):
+    """Enumeration of possible states for a Bitwarden password check task.
+
+    Attributes:
+        PENDING: Task has been created but not yet started.
+        RUNNING: Task is currently executing the password check.
+        COMPLETED: Task finished successfully with results.
+        FAILED: Task encountered an error and did not complete.
+    """
+
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"
@@ -25,6 +34,23 @@ class TaskStatus(Enum):
 
 @dataclass
 class BitwardenTask:
+    """Represents a background task for checking Bitwarden passwords against HIBP.
+
+    Tracks the lifecycle and results of an asynchronous password check operation,
+    from creation through completion or failure.
+
+    Attributes:
+        task_id: Unique identifier for this task (8-character UUID).
+        status: Current state of the task (pending, running, completed, failed).
+        started: ISO format timestamp when the task was created.
+        completed: ISO format timestamp when the task finished (None if still running).
+        progress: Percentage of completion (0-100).
+        total_items: Total number of password items to check.
+        current_item: Name of the item currently being checked.
+        result: Dict containing check results when completed successfully.
+        error: Error message if the task failed.
+    """
+
     task_id: str
     status: TaskStatus
     started: str
@@ -36,6 +62,7 @@ class BitwardenTask:
     error: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
+        """Convert task to dictionary representation for JSON serialization."""
         return {
             'task_id': self.task_id,
             'status': self.status.value,
@@ -50,6 +77,20 @@ class BitwardenTask:
 
 
 class BitwardenChecker:
+    """Manages Bitwarden CLI integration for HIBP password checking.
+
+    Provides methods to check prerequisites, start background password checks,
+    track task progress, and manage saved reports. Uses threading for non-blocking
+    operations when invoked from the web dashboard.
+
+    Attributes:
+        SESSION_FILE: Path to persistent Bitwarden session token file (~/.bw_session).
+        base_dir: Base directory of the HIBP project.
+        reports_dir: Directory where Bitwarden HIBP reports are stored.
+        active_tasks: Dict mapping task IDs to their BitwardenTask objects.
+        lock: Threading lock for thread-safe task management.
+    """
+
     # Path to persistent session file
     SESSION_FILE = Path.home() / '.bw_session'
 
@@ -92,7 +133,7 @@ class BitwardenChecker:
         if self._get_session():
             result['bw_session_set'] = True
         else:
-            result['errors'].append(f'BW_SESSION not found. Run: bw unlock --raw > ~/.bw_session')
+            result['errors'].append('BW_SESSION not found. Run: bw unlock --raw > ~/.bw_session')
 
         # Check bw CLI
         try:

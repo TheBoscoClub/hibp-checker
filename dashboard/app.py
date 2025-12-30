@@ -4,9 +4,8 @@ HIBP Dashboard - Web Interface for Breach Reports
 A local Flask-based dashboard to view HIBP breach reports and logs
 """
 
-from flask import Flask, render_template, jsonify, send_file, request
+from flask import Flask, render_template, jsonify, send_file
 import os
-import json
 import glob
 from datetime import datetime
 from pathlib import Path
@@ -66,7 +65,13 @@ def parse_text_report(filepath):
                     summary['emails_checked'].append(email)
 
         summary['content'] = content
-        summary['severity'] = 'critical' if summary['password_exposures'] > 0 or summary['critical_sites'] > 0 else 'warning' if summary['total_breaches'] > 0 else 'clean'
+        # Determine severity based on breach data
+        if summary['password_exposures'] > 0 or summary['critical_sites'] > 0:
+            summary['severity'] = 'critical'
+        elif summary['total_breaches'] > 0:
+            summary['severity'] = 'warning'
+        else:
+            summary['severity'] = 'clean'
 
         return summary
     except Exception as e:
