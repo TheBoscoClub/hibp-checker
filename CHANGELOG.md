@@ -8,15 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Added HEALTHCHECK instruction to Dockerfile for container health monitoring
+
+### Changed
+
+### Fixed
+
+## [2.3.0] - 2025-12-29
+
+### Added
+- Comprehensive pytest test suite with 203+ tests achieving 85%+ coverage
+- HEALTHCHECK instruction in Dockerfile for container health monitoring
+- Testing dependencies: pytest, pytest-cov, pytest-mock, responses
 
 ### Changed
 - Removed obsolete `version` field from docker-compose.yml and docker-compose.scheduled.yml (deprecated in Compose v2)
 - Added version label (`org.opencontainers.image.version`) to Dockerfile metadata
 
 ### Fixed
+- Security: pinned werkzeug>=3.1.4 to address CVE-2025-66221
 - Code quality improvements: removed trailing whitespace across multiple files
-- Added missing docstrings to test functions in test_hibp.py
+- Added missing docstrings to dashboard/bitwarden_checker.py classes
 
 ## [2.2.3] - 2025-12-27
 
@@ -280,4 +291,4 @@ None at this time.
 
 ---
 
-**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.2.3
+**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.3.0
