@@ -75,3 +75,6 @@ exit.*
 
 # Claude Code instructions (local only)
 CLAUDE.md
+
+# Claude Code
+.claudeignore
