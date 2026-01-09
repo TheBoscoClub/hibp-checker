@@ -9,9 +9,7 @@ Tests the core password checking functionality including:
 import hashlib
 import sys
 from pathlib import Path
-from unittest.mock import MagicMock, patch
 
-import pytest
 import responses
 
 # Add project root to path
@@ -30,10 +28,6 @@ spec.loader.exec_module(check_passwords)
 from tests.fixtures.mock_responses import (
     HIBP_HASH_RANGE_WITH_MATCH,
     HIBP_HASH_RANGE_NO_MATCH,
-    HIBP_HASH_RANGE_LOW_COUNT,
-    HIBP_HASH_RANGE_MEDIUM_COUNT,
-    HIBP_HASH_RANGE_HIGH_COUNT,
-    HIBP_HASH_RANGE_CRITICAL_COUNT,
 )
 from tests.fixtures.sample_data import (
     PWNED_PASSWORD,

@@ -14,9 +14,7 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
-from unittest.mock import MagicMock, patch, mock_open
 
-import pytest
 import responses
 
 # Add project root to path
@@ -32,7 +30,6 @@ from tests.fixtures.mock_responses import (
     HIBP_PASTE_RESPONSE,
     HIBP_STEALER_LOGS_RESPONSE,
     HIBP_ERROR_401,
-    HIBP_ERROR_429,
 )
 from tests.fixtures.sample_data import (
     PWNED_PASSWORD,

@@ -13,7 +13,7 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Generator
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 import pytest
 import responses
@@ -36,7 +36,6 @@ from tests.fixtures.sample_data import (
     SAFE_PASSWORD,
     PWNED_PASSWORD,
     PWNED_PASSWORD_HASH_PREFIX,
-    PWNED_PASSWORD_HASH_SUFFIX,
 )
 
 

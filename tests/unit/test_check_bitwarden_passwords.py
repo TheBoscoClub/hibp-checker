@@ -10,9 +10,7 @@ Tests the Bitwarden export parsing and password checking functionality:
 import json
 import sys
 from pathlib import Path
-from unittest.mock import MagicMock, patch, mock_open
 
-import pytest
 import responses
 
 # Add project root to path
@@ -36,7 +34,6 @@ from tests.fixtures.sample_data import (
     SAMPLE_BITWARDEN_EXPORT,
     SAMPLE_BITWARDEN_EXPORT_EMPTY,
     SAMPLE_BITWARDEN_EXPORT_NO_LOGINS,
-    SAMPLE_BITWARDEN_EXPORT_SAFE,
     PWNED_PASSWORD,
     PWNED_PASSWORD_HASH_PREFIX,
     PWNED_PASSWORD_COUNT,

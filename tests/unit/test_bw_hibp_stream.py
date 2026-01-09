@@ -10,12 +10,8 @@ Tests the streaming Bitwarden password checker including:
 
 import json
 import sys
-from datetime import datetime
-from io import StringIO
 from pathlib import Path
-from unittest.mock import MagicMock, patch
 
-import pytest
 import responses
 
 # Add project root to path

@@ -8,14 +8,12 @@ Tests the BitwardenChecker class including:
 """
 
 import json
-import os
 import sys
 import threading
 from datetime import datetime
 from pathlib import Path
-from unittest.mock import MagicMock, patch, PropertyMock
+from unittest.mock import MagicMock, patch
 
-import pytest
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
