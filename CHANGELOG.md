@@ -13,6 +13,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [2.3.1] - 2026-01-09
+
+### Security
+- Fixed path traversal vulnerabilities in dashboard/app.py (CodeQL finding)
+- Fixed sensitive data exposure in logging with `redact_sensitive()` helper
+- Added request timeouts (30s) to prevent hanging on slow/unresponsive endpoints
+- Updated urllib3 to 2.6.3 for CVE-2026-21441
+- Added `usedforsecurity=False` to SHA1 calls (HIBP API requirement, not cryptographic)
+- Hardened systemd service with `ProtectSystem=strict`, `ProtectHome=read-only`
+
+### Added
+- CodeQL semantic code analysis workflow (`.github/workflows/codeql.yml`)
+- Python security and quality workflow with pip-audit, bandit, ruff
+- Daily automated security scans (upgraded from weekly)
+
+### Changed
+- Replaced wildcard imports in test fixtures with explicit imports
+- Added `__all__` declaration to test fixtures for proper re-exports
+- Pinned Python 3.14.2 via pyenv for reproducible builds
+- Updated documentation version references from 2.0.0 to 2.3.0
+
+### Fixed
+- GitHub workflow permissions (added `contents: read`)
+- Test artifact patterns added to .gitignore
+
 ## [2.3.0] - 2025-12-29
 
 ### Added
@@ -291,4 +316,4 @@ None at this time.
 
 ---
 
-**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.3.0
+**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.3.1

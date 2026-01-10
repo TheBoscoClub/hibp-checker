@@ -368,7 +368,7 @@ docker run --rm \
 The Docker image is published with multiple tags:
 
 - `latest` - Latest stable version from main branch
-- `v2.3.0` - Specific version (semantic versioning)
+- `v2.3.1` - Specific version (semantic versioning)
 - `v2.3` - Major.minor version
 - `v2` - Major version only
 - `main` - Latest commit on main branch (may be unstable)
@@ -378,7 +378,7 @@ The Docker image is published with multiple tags:
 
 **Production**: Use specific version tags
 ```bash
-docker pull ghcr.io/greogory/hibp-checker:v2.3.0
+docker pull ghcr.io/greogory/hibp-checker:v2.3.1
 ```
 
 **Testing**: Use latest
@@ -565,10 +565,10 @@ Avoid pulling `:latest` every time:
 
 ```bash
 # Pull once
-docker pull ghcr.io/greogory/hibp-checker:v2.3.0
+docker pull ghcr.io/greogory/hibp-checker:v2.3.1
 
 # Use specific tag
-docker run ghcr.io/greogory/hibp-checker:v2.3.0 ...
+docker run ghcr.io/greogory/hibp-checker:v2.3.1 ...
 ```
 
 ### Remove Old Containers
