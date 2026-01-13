@@ -9,10 +9,10 @@
 
 | Version | Status | Release |
 |---------|--------|---------|
-| ![2](https://img.shields.io/badge/2-brightgreen)![3](https://img.shields.io/badge/3-green)![2](https://img.shields.io/badge/2-darkgreen)![1](https://img.shields.io/badge/1-yellow) | Latest tweak | [v2.3.2.1](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.1) |
+| ![2](https://img.shields.io/badge/2-brightgreen)![3](https://img.shields.io/badge/3-green)![2](https://img.shields.io/badge/2-darkgreen)![2](https://img.shields.io/badge/2-yellow) | Latest tweak | [v2.3.2.2](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.2) |
+| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-red)![2](https://img.shields.io/badge/2-darkred)![1](https://img.shields.io/badge/1-orange) | Prior tweak | [v2.3.2.1](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.1) |
 | ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-red)![2](https://img.shields.io/badge/2-darkred) | Prior patch | [v2.3.2](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2) |
 | ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-red)![1](https://img.shields.io/badge/1-darkred) | Prior patch | [v2.3.1](https://github.com/greogory/hibp-checker/releases/tag/v2.3.1) |
-| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-red)![0](https://img.shields.io/badge/0-darkred) | Prior minor | [v2.3.0](https://github.com/greogory/hibp-checker/releases/tag/v2.3.0) |
 
 <details>
 <summary>Badge Color Convention</summary>
@@ -56,7 +56,7 @@ This project uses data from **Have I Been Pwned**, licensed under [Creative Comm
 
 ---
 
-**Version**: 2.3.2.1 | **License**: MIT | **Data**: CC BY 4.0 (HIBP)
+**Version**: 2.3.2.2 | **License**: MIT | **Data**: CC BY 4.0 (HIBP)
 **Platform**: Linux (native) | Windows/macOS (Docker) | [Windows/WSL2 guide](WINDOWS_INSTALL.md) | [Docker guide](DOCKER.md)
 **Dependencies**: Python 3.6+, Flask 2.0+, requests, bash, **HIBP API subscription**
 **NEW in v2.0**: 📊 Web Dashboard - [Guide](DASHBOARD_GUIDE.md)

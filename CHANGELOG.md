@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [2.3.2.2] - 2026-01-13
+
+### Changed
+- Test release to verify automatic badge updates in `/git-release` workflow
+
 ## [2.3.2.1] - 2026-01-13
 
 ### Added
