@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [2.3.2] - 2026-01-13
+
+### Added
+- `docs/ARCHITECTURE.md` - System architecture documentation
+
+### Changed
+- Updated .gitignore with local tool config patterns (bandit, pyproject.toml, ruff)
+
 ## [2.3.1] - 2026-01-09
 
 ### Security
@@ -316,4 +324,4 @@ None at this time.
 
 ---
 
-**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.3.1
+**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.3.2
