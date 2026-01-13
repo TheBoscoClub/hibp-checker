@@ -1,25 +1,24 @@
 # HIBP Comprehensive Breach & Credential Stuffing Checker
 
-**License**: MIT | **Data License**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (HIBP)
-**Platform**: Linux, Windows (Docker/WSL2), macOS (Docker) | **Language**: Python 3.6+, Bash
-**Dependencies**: Python 3.6+, Flask 2.0+, requests, **HIBP API subscription required**
-**Features**: Web dashboard, systemd automation, stealer log detection, pwned password checking
-
-### Version History
-
 | Version | Status | Release |
 |---------|--------|---------|
-| ![2](https://img.shields.io/badge/2-brightgreen)![3](https://img.shields.io/badge/3-green)![2](https://img.shields.io/badge/2-darkgreen)![2](https://img.shields.io/badge/2-yellow) | Latest tweak | [v2.3.2.2](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.2) |
-| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-red)![2](https://img.shields.io/badge/2-darkred)![1](https://img.shields.io/badge/1-orange) | Prior tweak | [v2.3.2.1](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.1) |
-| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-red)![2](https://img.shields.io/badge/2-darkred) | Prior patch | [v2.3.2](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2) |
-| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-red)![1](https://img.shields.io/badge/1-darkred) | Prior patch | [v2.3.1](https://github.com/greogory/hibp-checker/releases/tag/v2.3.1) |
+| ![2](https://img.shields.io/badge/2-brightgreen)![3](https://img.shields.io/badge/3-darkgreen)![2](https://img.shields.io/badge/2-green)![2](https://img.shields.io/badge/2-yellow) | Latest tweak | [v2.3.2.2](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.2) |
+| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-darkred)![2](https://img.shields.io/badge/2-red)![1](https://img.shields.io/badge/1-orange) | Prior tweak | [v2.3.2.1](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.1) |
+| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-darkred)![2](https://img.shields.io/badge/2-red) | Prior patch | [v2.3.2](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2) |
 
 <details>
 <summary>Badge Color Convention</summary>
 
-Each version segment gets its own badge (brightgreen→green→darkgreen→yellow for current, brightred→red→darkred→orange for prior).
+Each segment gets its own badge: `brightgreen → darkgreen → green → yellow` (current) / `brightred → darkred → red → orange` (prior)
 
 </details>
+
+---
+
+**License**: MIT | **Data License**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (HIBP)
+**Platform**: Linux, Windows (Docker/WSL2), macOS (Docker) | **Language**: Python 3.6+, Bash
+**Dependencies**: Python 3.6+, Flask 2.0+, requests, **HIBP API subscription required**
+**Features**: Web dashboard, systemd automation, stealer log detection, pwned password checking
 
 ---
 
