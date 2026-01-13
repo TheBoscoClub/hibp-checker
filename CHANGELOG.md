@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+## [2.3.2.1] - 2026-01-13
+
+### Added
+- Multi-segment version badges in README with hierarchical color scheme
+- Version history table showing release progression
+
 ## [2.3.2] - 2026-01-13
 
 ### Added
