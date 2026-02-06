@@ -23,7 +23,8 @@ PWNED_PASSWORD_COUNT = 10434471
 
 # A safe password (extremely unlikely to be in breaches)
 SAFE_PASSWORD = "Xk9!mN2@pQ7#rT4$vW6%yZ8^aB1&cD3*eF5(gH0)"
-SAFE_PASSWORD_SHA1 = hashlib.sha1(SAFE_PASSWORD.encode('utf-8')).hexdigest().upper()
+# SHA1 is required by HIBP API protocol, not used for security purposes
+SAFE_PASSWORD_SHA1 = hashlib.sha1(SAFE_PASSWORD.encode('utf-8'), usedforsecurity=False).hexdigest().upper()
 SAFE_PASSWORD_HASH_PREFIX = SAFE_PASSWORD_SHA1[:5]
 SAFE_PASSWORD_HASH_SUFFIX = SAFE_PASSWORD_SHA1[5:]
 

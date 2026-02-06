@@ -124,7 +124,7 @@ class TestCheckPassword:
     def test_check_password_uses_correct_hash(self):
         """Test that the correct SHA-1 hash is computed and used."""
         # Compute expected hash
-        expected_hash = hashlib.sha1(PWNED_PASSWORD.encode('utf-8')).hexdigest().upper()
+        expected_hash = hashlib.sha1(PWNED_PASSWORD.encode('utf-8'), usedforsecurity=False).hexdigest().upper()
         expected_prefix = expected_hash[:5]
 
         responses.add(
@@ -144,7 +144,7 @@ class TestCheckPassword:
     def test_check_password_unicode(self):
         """Test that unicode passwords are handled correctly."""
         unicode_password = "pAssw0rd!"
-        sha1_hash = hashlib.sha1(unicode_password.encode('utf-8')).hexdigest().upper()
+        sha1_hash = hashlib.sha1(unicode_password.encode('utf-8'), usedforsecurity=False).hexdigest().upper()
         prefix = sha1_hash[:5]
 
         responses.add(
@@ -266,7 +266,7 @@ class TestHashComputation:
     def test_sha1_hash_uppercase(self):
         """Test that SHA-1 hashes are computed in uppercase."""
         password = "test"
-        sha1_hash = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
+        sha1_hash = hashlib.sha1(password.encode('utf-8'), usedforsecurity=False).hexdigest().upper()
 
         # Should be all uppercase hex
         assert sha1_hash == sha1_hash.upper()
@@ -275,15 +275,15 @@ class TestHashComputation:
     def test_sha1_hash_consistency(self):
         """Test that the same password always produces the same hash."""
         password = "consistent_password"
-        hash1 = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
-        hash2 = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
+        hash1 = hashlib.sha1(password.encode('utf-8'), usedforsecurity=False).hexdigest().upper()
+        hash2 = hashlib.sha1(password.encode('utf-8'), usedforsecurity=False).hexdigest().upper()
 
         assert hash1 == hash2
 
     def test_sha1_prefix_length(self):
         """Test that hash prefix is exactly 5 characters."""
         password = "any_password"
-        sha1_hash = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()
+        sha1_hash = hashlib.sha1(password.encode('utf-8'), usedforsecurity=False).hexdigest().upper()
         prefix = sha1_hash[:5]
         suffix = sha1_hash[5:]
 

@@ -11,9 +11,9 @@ FROM python:3.11-slim
 LABEL org.opencontainers.image.title="HIBP Checker"
 LABEL org.opencontainers.image.description="Have I Been Pwned breach checker with comprehensive analysis"
 LABEL org.opencontainers.image.authors="Bosco <gjbr@pm.me>"
-LABEL org.opencontainers.image.source="https://github.com/greogory/hibp-checker"
+LABEL org.opencontainers.image.source="https://github.com/TheBoscoClub/hibp-checker"
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.documentation="https://github.com/greogory/hibp-checker/blob/main/README.md"
+LABEL org.opencontainers.image.documentation="https://github.com/TheBoscoClub/hibp-checker/blob/main/README.md"
 LABEL org.opencontainers.image.version="2.3.3"
 
 # Install bash and other required tools
@@ -24,12 +24,12 @@ RUN apt-get update && \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Create app directory first (DL3045: COPY to relative destination requires WORKDIR)
+WORKDIR /app
+
 # Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# Create app directory
-WORKDIR /app
 
 # Copy application files
 COPY hibp_comprehensive_checker.py .
