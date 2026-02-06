@@ -5,7 +5,7 @@
 #
 # This Docker image provides cross-platform support for Windows and macOS users
 
-FROM python:3.11-slim
+FROM python:3.14-slim
 
 # Metadata
 LABEL org.opencontainers.image.title="HIBP Checker"
