@@ -1,6 +1,6 @@
 [Unit]
 Description=HIBP Dashboard Web Server
-Documentation=https://github.com/greogory/hibp-checker
+Documentation=https://github.com/TheBoscoClub/hibp-checker
 After=network.target
 
 [Service]

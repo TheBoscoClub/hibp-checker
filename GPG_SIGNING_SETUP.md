@@ -149,7 +149,7 @@ git push -f origin code-scanning-analysis
 
 Once the GPG key is added to GitHub:
 
-1. **Refresh the PR page:** https://github.com/greogory/hibp-checker/pull/2
+1. **Refresh the PR page:** https://github.com/TheBoscoClub/hibp-checker/pull/2
 2. **Commits should now show "Verified" badge**
 3. **Merge the PR**
 

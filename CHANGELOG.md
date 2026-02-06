@@ -168,7 +168,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Systemd Timer Improvements**:
   - Changed default schedule from 3 AM to 2 AM
   - Added `OnBootSec=15min` - runs 15 minutes after boot if scheduled time was missed
-  - Updated systemd service paths from `~/claude-archive/projects/hibp-project` to `/raid0/ClaudeCodeProjects/hibp-project`
+  - Updated systemd service paths from `~/claude-archive/projects/hibp-project` to `/hddRaid1/ClaudeCodeProjects/hibp-project`
   - Fixed `ReadWritePaths` to use correct project location
 - Enhanced `.gitignore` to exclude release artifacts
 
@@ -327,7 +327,7 @@ None at this time.
 
 ### Contributors
 
-- Bosco (@greogory) - Initial dashboard implementation
+- Bosco (@TheBoscoClub) - Initial dashboard implementation
 
 ---
 
@@ -348,4 +348,4 @@ None at this time.
 
 ---
 
-**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v1.0.0...v2.3.2
+**Full Changelog**: https://github.com/TheBoscoClub/hibp-checker/compare/v1.0.0...v2.3.2

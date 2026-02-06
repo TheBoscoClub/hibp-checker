@@ -1,6 +1,6 @@
 [Unit]
 Description=HIBP Breach Checker
-Documentation=https://github.com/greogory/hibp-checker
+Documentation=https://github.com/TheBoscoClub/hibp-checker
 After=network-online.target
 Wants=network-online.target
 

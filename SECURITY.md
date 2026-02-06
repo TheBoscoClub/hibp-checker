@@ -238,7 +238,7 @@ git check-ignore -v my_emails.txt
 
 ```bash
 # View current branch protection
-gh api repos/greogory/hibp-checker/branches/main/protection
+gh api repos/TheBoscoClub/hibp-checker/branches/main/protection
 
 # Enable branch protection (manual via GitHub web UI recommended)
 # Go to: Settings > Branches > Add rule
@@ -344,7 +344,7 @@ hadolint Dockerfile
 grype dir:. --only-fixed
 
 # CodeQL (via GitHub Actions)
-gh api repos/greogory/hibp-checker/code-scanning/alerts --jq '.[].rule.id'
+gh api repos/TheBoscoClub/hibp-checker/code-scanning/alerts --jq '.[].rule.id'
 
 # Secrets scan
 grep -rE "(api[_-]?key|password|secret|token).*=" --include="*.py" --include="*.sh" . | grep -v "example\|template\|\.git"

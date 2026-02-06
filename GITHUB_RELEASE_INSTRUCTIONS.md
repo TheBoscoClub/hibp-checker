@@ -40,7 +40,7 @@ git push origin v2.3.1
 
 #### Option A: Using GitHub Web Interface (Recommended)
 
-1. Go to your repository: https://github.com/greogory/hibp-checker
+1. Go to your repository: https://github.com/TheBoscoClub/hibp-checker
 2. Click on "Releases" in the right sidebar
 3. Click "Draft a new release"
 4. Fill in the release form:
@@ -81,8 +81,8 @@ If you're using GitHub Container Registry:
 # Build multi-platform image
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  --tag ghcr.io/greogory/hibp-checker:2.3.1 \
-  --tag ghcr.io/greogory/hibp-checker:latest \
+  --tag ghcr.io/theboscoclub/hibp-checker:2.3.1 \
+  --tag ghcr.io/theboscoclub/hibp-checker:latest \
   --push \
   .
 ```
@@ -114,7 +114,7 @@ New in this release:
 📱 Mobile-responsive design
 🔄 Auto-refresh & real-time stats
 
-Download: https://github.com/greogory/hibp-checker/releases/tag/v2.3.1
+Download: https://github.com/TheBoscoClub/hibp-checker/releases/tag/v2.3.1
 
 #cybersecurity #privacy #opensource
 ```
@@ -177,7 +177,7 @@ After publishing the release:
 - Main README: `README.md`
 
 **Contact**:
-- GitHub Issues: https://github.com/greogory/hibp-checker/issues
+- GitHub Issues: https://github.com/TheBoscoClub/hibp-checker/issues
 - Email: gjbr@pm.me
 
 ---

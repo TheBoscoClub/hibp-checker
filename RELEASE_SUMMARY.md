@@ -235,7 +235,7 @@ Potential features for v2.1 or v3.0:
 - Release Notes: `RELEASE_NOTES_v2.0.0.md`
 
 ### Getting Help
-- GitHub Issues: https://github.com/greogory/hibp-checker/issues
+- GitHub Issues: https://github.com/TheBoscoClub/hibp-checker/issues
 - HIBP Documentation: https://haveibeenpwned.com/API/v3
 - Docker Guide: `DOCKER.md`
 
@@ -258,7 +258,7 @@ HIBP Checker v2.0.0 successfully adds a modern web dashboard while maintaining 1
 
 ---
 
-**Release Manager**: Bosco (@greogory)
+**Release Manager**: Bosco (@TheBoscoClub)
 **Release Date**: November 7, 2025
 **Version**: 2.0.0
 **Status**: ✅ Ready for Production

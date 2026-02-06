@@ -512,7 +512,7 @@ python3 hibp_comprehensive_checker.py -e you@example.com
 
 # Via Docker
 docker run --rm -e HIBP_API_KEY=your-key \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e you@example.com
 ```
 
@@ -686,7 +686,7 @@ fi
 ## Support
 
 For issues or questions:
-- 📁 **Project Issues**: https://github.com/greogory/hibp-checker/issues
+- 📁 **Project Issues**: https://github.com/TheBoscoClub/hibp-checker/issues
 - 📚 **HIBP API Docs**: https://haveibeenpwned.com/API/v3
 - 💬 **HIBP Support**: https://haveibeenpwned.com/About
 

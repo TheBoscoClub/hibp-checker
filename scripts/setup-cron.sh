@@ -41,7 +41,7 @@ if [[ -z "${HIBP_API_KEY:-}" ]]; then
     read -p "Do you want to create ${CONFIG_DIR}/hibp-checker.env now? [y/N] " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        read -p "Enter your HIBP API key: " api_key
+        read -rp "Enter your HIBP API key: " api_key
         echo "HIBP_API_KEY=${api_key}" > "${CONFIG_DIR}/hibp-checker.env"
         chmod 600 "${CONFIG_DIR}/hibp-checker.env"
         echo -e "${GREEN}✓${NC} API key saved to ${CONFIG_DIR}/hibp-checker.env"
@@ -83,7 +83,7 @@ echo "  3. Custom schedule"
 echo "  4. Manual setup (skip automatic installation)"
 echo ""
 
-read -p "Choice [1-4]: " choice
+read -rp "Choice [1-4]: " choice
 
 case $choice in
     1)
@@ -98,7 +98,7 @@ case $choice in
         echo ""
         echo "Enter custom cron schedule (e.g., '0 2 * * *' for 2 AM daily):"
         echo "Format: minute hour day month weekday"
-        read -p "Schedule: " CRON_SCHEDULE
+        read -rp "Schedule: " CRON_SCHEDULE
         SCHEDULE_DESC="Custom: $CRON_SCHEDULE"
         ;;
     4)

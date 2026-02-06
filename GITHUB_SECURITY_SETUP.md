@@ -28,7 +28,7 @@ Protect the `main` branch from unauthorized or dangerous changes.
 ### Setup Steps
 
 1. **Navigate to Branch Protection**
-   - Go to: https://github.com/greogory/hibp-checker/settings/branches
+   - Go to: https://github.com/TheBoscoClub/hibp-checker/settings/branches
    - Click "Add rule" or "Add branch protection rule"
 
 2. **Branch Name Pattern**
@@ -88,7 +88,7 @@ Enable GitHub's automated security features.
 ### Setup Steps
 
 1. **Navigate to Security Settings**
-   - Go to: https://github.com/greogory/hibp-checker/settings/security_analysis
+   - Go to: https://github.com/TheBoscoClub/hibp-checker/settings/security_analysis
 
 2. **Enable Dependabot Alerts**
    - ☑️ **Dependabot alerts**
@@ -101,7 +101,7 @@ Enable GitHub's automated security features.
      - Click "Enable"
 
 4. **Enable Private Vulnerability Reporting**
-   - Go to: https://github.com/greogory/hibp-checker/settings
+   - Go to: https://github.com/TheBoscoClub/hibp-checker/settings
    - Scroll to "Security" section
    - ☑️ **Private vulnerability reporting**
      - Allows security researchers to report issues privately
@@ -115,7 +115,7 @@ Enable GitHub's automated security features.
 ### Additional Security Settings
 
 1. **Disable Unused Features** (reduces attack surface)
-   - Go to: https://github.com/greogory/hibp-checker/settings
+   - Go to: https://github.com/TheBoscoClub/hibp-checker/settings
    - Features section:
      - ☐ Wikis (disable if not used)
      - ☐ Issues (or enable with moderation)
@@ -150,7 +150,7 @@ The security-checks.yml workflow needs to be manually added due to token permiss
    ```
 
 3. **Verify Workflow**
-   - Go to: https://github.com/greogory/hibp-checker/actions
+   - Go to: https://github.com/TheBoscoClub/hibp-checker/actions
    - You should see "Security Checks" workflow
    - Make a test commit to trigger it
 
@@ -173,7 +173,7 @@ Set up advanced code scanning for additional security.
 ### Option 1: GitHub Advanced Security (Free for Public Repos)
 
 1. **Enable Code Scanning**
-   - Go to: https://github.com/greogory/hibp-checker/security/code-scanning
+   - Go to: https://github.com/TheBoscoClub/hibp-checker/security/code-scanning
    - Click "Set up code scanning"
 
 2. **Configure CodeQL**
@@ -196,7 +196,7 @@ Set up advanced code scanning for additional security.
 **SonarCloud** (Free for open source):
 1. Go to: https://sonarcloud.io/
 2. Sign in with GitHub
-3. Analyze: `greogory/hibp-checker`
+3. Analyze: `TheBoscoClub/hibp-checker`
 
 ---
 
@@ -237,7 +237,7 @@ Expected result: ❌ Commit blocked by pre-commit hook
    ```
 
 2. Create PR on GitHub:
-   - Go to: https://github.com/greogory/hibp-checker/pulls
+   - Go to: https://github.com/TheBoscoClub/hibp-checker/pulls
    - Click "New pull request"
    - Base: main, Compare: test-security
    - Create PR
@@ -250,14 +250,14 @@ Expected result: ❌ Commit blocked by pre-commit hook
 ### 4. Test Dependabot
 
 Wait for Dependabot to scan dependencies:
-- Check: https://github.com/greogory/hibp-checker/security/dependabot
+- Check: https://github.com/TheBoscoClub/hibp-checker/security/dependabot
 
 Expected result: ✅ No vulnerabilities (or PRs created if any found)
 
 ### 5. Verify Security Policy
 
 Check that security policy is visible:
-- Go to: https://github.com/greogory/hibp-checker/security/policy
+- Go to: https://github.com/TheBoscoClub/hibp-checker/security/policy
 
 Expected result: ✅ SECURITY.md displayed
 
@@ -368,7 +368,7 @@ Then retry push.
 - Code Scanning: https://docs.github.com/en/code-security/code-scanning
 
 **Repository Issues:**
-- Create issue: https://github.com/greogory/hibp-checker/issues
+- Create issue: https://github.com/TheBoscoClub/hibp-checker/issues
 
 ---
 

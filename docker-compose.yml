@@ -1,6 +1,6 @@
 services:
   hibp-checker:
-    image: ghcr.io/greogory/hibp-checker:latest
+    image: ghcr.io/theboscoclub/hibp-checker:latest
     container_name: hibp-checker
     environment:
       # REQUIRED: Set your HIBP API key
@@ -19,7 +19,7 @@ services:
 
   # One-time check service
   hibp-check-once:
-    image: ghcr.io/greogory/hibp-checker:latest
+    image: ghcr.io/theboscoclub/hibp-checker:latest
     container_name: hibp-checker-oneshot
     environment:
       - HIBP_API_KEY=${HIBP_API_KEY}
@@ -32,7 +32,7 @@ services:
 
   # Web Dashboard (NEW in v2.0)
   dashboard:
-    image: ghcr.io/greogory/hibp-checker:latest
+    image: ghcr.io/theboscoclub/hibp-checker:latest
     container_name: hibp-dashboard
     ports:
       - "5000:5000"

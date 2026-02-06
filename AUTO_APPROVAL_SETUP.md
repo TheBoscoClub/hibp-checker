@@ -51,7 +51,7 @@ These files are already in your repository.
 
 GitHub Actions needs permission to approve and merge PRs.
 
-**Go to**: https://github.com/greogory/hibp-checker/settings/actions
+**Go to**: https://github.com/TheBoscoClub/hibp-checker/settings/actions
 
 Under **"Workflow permissions"**:
 
@@ -61,7 +61,7 @@ Under **"Workflow permissions"**:
 
 ### Step 3: Enable Auto-Merge Feature (Repository Setting)
 
-**Go to**: https://github.com/greogory/hibp-checker/settings
+**Go to**: https://github.com/TheBoscoClub/hibp-checker/settings
 
 Scroll down to **"Pull Requests"** section:
 
@@ -70,7 +70,7 @@ Scroll down to **"Pull Requests"** section:
 
 ### Step 4: Configure Branch Protection (Keep Existing Rules)
 
-**Go to**: https://github.com/greogory/hibp-checker/settings/branches
+**Go to**: https://github.com/TheBoscoClub/hibp-checker/settings/branches
 
 Your existing branch protection for `main` should have:
 
@@ -232,14 +232,14 @@ Your `security-checks.yml` workflow still runs and checks for:
 ### ✅ Manual Override
 
 You can still:
-- View PRs before they merge: https://github.com/greogory/hibp-checker/pulls
+- View PRs before they merge: https://github.com/TheBoscoClub/hibp-checker/pulls
 - Comment on PRs
 - Request changes (blocks auto-merge)
 - Manually close PRs without merging
 
 ### ✅ Owner-Only Auto-Approval
 
-Only PRs created by `greogory` (you) are auto-approved. Future collaborators would need manual approval.
+Only PRs created by `TheBoscoClub` (you) are auto-approved. Future collaborators would need manual approval.
 
 ---
 
@@ -275,7 +275,7 @@ git push
 
 ### Issue: Workflows Not Running
 
-**Check**: https://github.com/greogory/hibp-checker/settings/actions
+**Check**: https://github.com/TheBoscoClub/hibp-checker/settings/actions
 
 Ensure:
 - Workflows are enabled (not disabled)
@@ -294,7 +294,7 @@ Ensure:
    - Enable "Allow GitHub Actions to create and approve pull requests"
 
 3. **PR not created by owner**
-   - Check: Is the PR author `greogory`?
+   - Check: Is the PR author `TheBoscoClub`?
    - The workflow only runs for owner PRs
 
 ### Issue: PR Approved But Not Merging
@@ -302,7 +302,7 @@ Ensure:
 **Possible causes**:
 
 1. **Auto-merge not enabled**
-   - Go to: https://github.com/greogory/hibp-checker/settings
+   - Go to: https://github.com/TheBoscoClub/hibp-checker/settings
    - Enable "Allow auto-merge"
 
 2. **Checks failing**
@@ -419,7 +419,7 @@ gh pr create --title "Update"
 
 ### 3. Monitor GitHub Actions
 
-Check occasionally: https://github.com/greogory/hibp-checker/actions
+Check occasionally: https://github.com/TheBoscoClub/hibp-checker/actions
 
 Ensure workflows are passing.
 

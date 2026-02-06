@@ -13,7 +13,7 @@ services:
 
   # Worker container that runs the checks
   hibp-worker:
-    image: ghcr.io/greogory/hibp-checker:latest
+    image: ghcr.io/theboscoclub/hibp-checker:latest
     container_name: hibp-worker
     environment:
       - HIBP_API_KEY=${HIBP_API_KEY}
@@ -31,7 +31,7 @@ services:
 
   # Alternative: Weekly check on Monday at 9 AM
   hibp-worker-weekly:
-    image: ghcr.io/greogory/hibp-checker:latest
+    image: ghcr.io/theboscoclub/hibp-checker:latest
     container_name: hibp-worker-weekly
     environment:
       - HIBP_API_KEY=${HIBP_API_KEY}

@@ -1,7 +1,5 @@
 # HIBP Comprehensive Breach & Credential Stuffing Checker
 
-[![CodeFactor](https://www.codefactor.io/repository/github/theboscoclub/hibp-checker/badge)](https://www.codefactor.io/repository/github/theboscoclub/hibp-checker)
-
 | Version | Status | Release |
 |---------|--------|---------|
 | ![2](https://img.shields.io/badge/2-brightgreen)![3](https://img.shields.io/badge/3-darkgreen)![3](https://img.shields.io/badge/3-green) | Latest patch | [v2.3.3](https://github.com/TheBoscoClub/hibp-checker/releases/tag/v2.3.3) |
@@ -76,7 +74,7 @@ cd hibp-checker
 ```bash
 docker run --rm \
   -e HIBP_API_KEY="your-api-key" \
-  ghcr.io/TheBoscoClub/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 
@@ -727,7 +725,7 @@ Fully supported and tested on:
 Supported via Docker. Not tested natively by the maintainer (no Windows dev environment).
 
 ```bash
-docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/TheBoscoClub/hibp-checker:latest \
+docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 
@@ -739,7 +737,7 @@ docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/TheBoscoClub/hibp-checker:lat
 Supported via Docker. Not tested natively by the maintainer (no macOS dev environment).
 
 ```bash
-docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/TheBoscoClub/hibp-checker:latest \
+docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 

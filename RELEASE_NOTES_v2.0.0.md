@@ -175,7 +175,7 @@ All existing features work exactly as before:
 
 ## 📝 Known Issues
 
-None at this time. If you encounter any issues, please report them on our [GitHub Issues](https://github.com/greogory/hibp-checker/issues) page.
+None at this time. If you encounter any issues, please report them on our [GitHub Issues](https://github.com/TheBoscoClub/hibp-checker/issues) page.
 
 ## 🙏 Acknowledgments
 
@@ -199,14 +199,14 @@ Planned for future releases:
 - **Dashboard Guide**: [DASHBOARD_GUIDE.md](DASHBOARD_GUIDE.md)
 - **Docker Guide**: [DOCKER.md](DOCKER.md)
 - **Changelog**: [CHANGELOG.md](CHANGELOG.md)
-- **GitHub**: https://github.com/greogory/hibp-checker
+- **GitHub**: https://github.com/TheBoscoClub/hibp-checker
 - **Have I Been Pwned**: https://haveibeenpwned.com
 
 ---
 
-**Download:** [hibp-checker-v2.0.0.tar.gz](https://github.com/greogory/hibp-checker/releases/tag/v2.0.0)
+**Download:** [hibp-checker-v2.0.0.tar.gz](https://github.com/TheBoscoClub/hibp-checker/releases/tag/v2.0.0)
 
-**Docker Image:** `ghcr.io/greogory/hibp-checker:2.0.0` or `ghcr.io/greogory/hibp-checker:latest`
+**Docker Image:** `ghcr.io/theboscoclub/hibp-checker:2.0.0` or `ghcr.io/theboscoclub/hibp-checker:latest`
 
 ---
 

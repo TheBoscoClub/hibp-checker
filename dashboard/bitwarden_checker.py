@@ -5,7 +5,7 @@ from the web dashboard.
 """
 
 import os
-import subprocess
+import subprocess  # nosec B404 - required for bw CLI integration
 import json
 import uuid
 import threading
@@ -116,7 +116,7 @@ class BitwardenChecker:
                     # Also set in environment for subprocess calls
                     os.environ['BW_SESSION'] = session
                     return session
-            except Exception:
+            except Exception:  # nosec B110 - session file may not exist
                 pass
         return None
 
@@ -137,7 +137,7 @@ class BitwardenChecker:
 
         # Check bw CLI
         try:
-            proc = subprocess.run(['which', 'bw'], capture_output=True, timeout=5)
+            proc = subprocess.run(['which', 'bw'], capture_output=True, timeout=5)  # nosec B603 B607
             result['bw_installed'] = proc.returncode == 0
             if not result['bw_installed']:
                 result['errors'].append('Bitwarden CLI (bw) not found. Install from: https://bitwarden.com/help/cli/')
@@ -147,7 +147,7 @@ class BitwardenChecker:
         # Check vault status if session is set
         if result['bw_session_set'] and result['bw_installed']:
             try:
-                proc = subprocess.run(
+                proc = subprocess.run(  # nosec B603 B607
                     ['bw', 'status'],
                     capture_output=True,
                     text=True,
@@ -196,14 +196,14 @@ class BitwardenChecker:
             script_path = self.base_dir / 'bw-hibp-stream.py'
 
             # Run: bw list items | python bw-hibp-stream.py --report json --quiet
-            bw_proc = subprocess.Popen(
+            bw_proc = subprocess.Popen(  # nosec B603 B607
                 ['bw', 'list', 'items'],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 env={**os.environ}
             )
 
-            hibp_proc = subprocess.Popen(
+            hibp_proc = subprocess.Popen(  # nosec B603 B607
                 ['python3', str(script_path), '--report', 'json', '--quiet'],
                 stdin=bw_proc.stdout,
                 stdout=subprocess.PIPE,
@@ -236,7 +236,7 @@ class BitwardenChecker:
             try:
                 hibp_proc.kill()
                 bw_proc.kill()
-            except Exception:
+            except Exception:  # nosec B110 - process may already be dead
                 pass
         except json.JSONDecodeError as e:
             task.status = TaskStatus.FAILED
@@ -277,7 +277,7 @@ class BitwardenChecker:
         for old_report in reports[:-keep] if len(reports) > keep else []:
             try:
                 old_report.unlink()
-            except Exception:
+            except Exception:  # nosec B110 - file may be in use or already deleted
                 pass
 
     def get_task_status(self, task_id: str) -> Optional[Dict[str, Any]]:
@@ -298,7 +298,7 @@ class BitwardenChecker:
             try:
                 with open(reports[-1]) as f:
                     return json.load(f)
-            except Exception:
+            except Exception:  # nosec B110 - report file may be corrupted
                 pass
         return None
 
@@ -318,7 +318,7 @@ class BitwardenChecker:
                         'generated': data.get('generated'),
                         'summary': data.get('summary', {})
                     })
-            except Exception:
+            except Exception:  # nosec B112 - skip corrupted report files
                 continue
         return reports
 
@@ -332,6 +332,6 @@ class BitwardenChecker:
             try:
                 with open(filepath) as f:
                     return json.load(f)
-            except Exception:
+            except Exception:  # nosec B110 - report file may be corrupted
                 pass
         return None

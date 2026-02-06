@@ -43,7 +43,7 @@ Check a single email address:
 ```bash
 docker run --rm \
   -e HIBP_API_KEY="your-api-key-here" \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text -v
 ```
 
@@ -58,7 +58,7 @@ docker run --rm \
 docker run --rm \
   -e HIBP_API_KEY="your-api-key" \
   -v $(pwd)/reports:/app/reports \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text -v
 ```
 
@@ -76,7 +76,7 @@ docker run --rm \
   -e HIBP_API_KEY="your-api-key" \
   -v $(pwd)/my_emails.txt:/app/data/emails.txt:ro \
   -v $(pwd)/reports:/app/reports \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text -v
 ```
 
@@ -86,7 +86,7 @@ docker run --rm \
 
 ```bash
 # Download docker-compose.yml
-curl -O https://raw.githubusercontent.com/greogory/hibp-checker/main/docker-compose.yml
+curl -O https://raw.githubusercontent.com/TheBoscoClub/hibp-checker/main/docker-compose.yml
 ```
 
 Or create manually:
@@ -94,7 +94,7 @@ Or create manually:
 ```yaml
 services:
   hibp-checker:
-    image: ghcr.io/greogory/hibp-checker:latest
+    image: ghcr.io/theboscoclub/hibp-checker:latest
     environment:
       - HIBP_API_KEY=${HIBP_API_KEY}
     volumes:
@@ -131,7 +131,7 @@ If you want to build from source:
 
 ```bash
 # Clone repository
-git clone https://github.com/greogory/hibp-checker.git
+git clone https://github.com/TheBoscoClub/hibp-checker.git
 cd hibp-checker
 
 # Build image
@@ -165,7 +165,7 @@ docker run --rm `
   -e HIBP_API_KEY="$env:HIBP_API_KEY" `
   -v ${PWD}/my_emails.txt:/app/data/emails.txt:ro `
   -v ${PWD}/reports:/app/reports `
-  ghcr.io/greogory/hibp-checker:latest `
+  ghcr.io/theboscoclub/hibp-checker:latest `
   python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text -v
 ```
 
@@ -184,7 +184,7 @@ docker run --rm ^
   -e HIBP_API_KEY=%HIBP_API_KEY% ^
   -v %cd%/my_emails.txt:/app/data/emails.txt:ro ^
   -v %cd%/reports:/app/reports ^
-  ghcr.io/greogory/hibp-checker:latest ^
+  ghcr.io/theboscoclub/hibp-checker:latest ^
   python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text -v
 ```
 
@@ -205,7 +205,7 @@ docker run --rm \
   -e HIBP_API_KEY="$HIBP_API_KEY" \
   -v $(pwd)/my_emails.txt:/app/data/emails.txt:ro \
   -v $(pwd)/reports:/app/reports \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text -v
 ```
 
@@ -226,7 +226,7 @@ docker run --rm \
   -e HIBP_API_KEY="$HIBP_API_KEY" \
   -v $(pwd)/my_emails.txt:/app/data/emails.txt:ro \
   -v $(pwd)/reports:/app/reports \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text -v
 ```
 
@@ -239,7 +239,7 @@ docker run --rm \
 ```bash
 docker run --rm \
   -e HIBP_API_KEY="your-key" \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 
@@ -250,7 +250,7 @@ docker run --rm \
   -e HIBP_API_KEY="your-key" \
   -v $(pwd)/my_emails.txt:/app/data/emails.txt:ro \
   -v $(pwd)/reports:/app/reports \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py \
     --email-file /app/data/emails.txt \
     -o json \
@@ -262,7 +262,7 @@ docker run --rm \
 ```bash
 docker run --rm \
   -e HIBP_API_KEY="your-key" \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py \
     -e email@example.com \
     -p "MyPassword123" \
@@ -275,7 +275,7 @@ docker run --rm \
 docker run --rm \
   -e HIBP_API_KEY="your-key" \
   -v $(pwd)/reports:/app/reports \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py \
     -e email@example.com \
     -o json > report.json
@@ -290,7 +290,7 @@ docker run --rm \
   -e HIBP_API_KEY="your-key" \
   -v /path/to/emails.txt:/app/data/emails.txt:ro \
   -v /path/to/reports:/app/reports \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text
 ```
 
@@ -301,7 +301,7 @@ docker run --rm ^
   -e HIBP_API_KEY=your-key ^
   -v C:\path\to\emails.txt:/app/data/emails.txt:ro ^
   -v C:\path\to\reports:/app/reports ^
-  ghcr.io/greogory/hibp-checker:latest ^
+  ghcr.io/theboscoclub/hibp-checker:latest ^
   python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text
 ```
 
@@ -357,7 +357,7 @@ docker run --rm \
   -e HIBP_API_KEY="your-key" \
   -e VERBOSE=true \
   -e OUTPUT_FORMAT=json \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com
 ```
 
@@ -378,12 +378,12 @@ The Docker image is published with multiple tags:
 
 **Production**: Use specific version tags
 ```bash
-docker pull ghcr.io/greogory/hibp-checker:v2.3.3
+docker pull ghcr.io/theboscoclub/hibp-checker:v2.3.3
 ```
 
 **Testing**: Use latest
 ```bash
-docker pull ghcr.io/greogory/hibp-checker:latest
+docker pull ghcr.io/theboscoclub/hibp-checker:latest
 ```
 
 ---
@@ -395,7 +395,7 @@ docker pull ghcr.io/greogory/hibp-checker:latest
 ```yaml
 services:
   hibp-check:
-    image: ghcr.io/greogory/hibp-checker:latest
+    image: ghcr.io/theboscoclub/hibp-checker:latest
     environment:
       - HIBP_API_KEY=${HIBP_API_KEY}
     volumes:
@@ -411,7 +411,7 @@ Run: `docker-compose up`
 ```yaml
 services:
   hibp-monitor:
-    image: ghcr.io/greogory/hibp-checker:latest
+    image: ghcr.io/theboscoclub/hibp-checker:latest
     environment:
       - HIBP_API_KEY=${HIBP_API_KEY}
     volumes:
@@ -470,7 +470,7 @@ docker run -v "C:\Users\My Name\reports:/app/reports" ...
 ```bash
 docker run --rm \
   -e HIBP_API_KEY="your-key" \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py --help
 ```
 
@@ -483,7 +483,7 @@ docker run --rm \
 # Check environment variable is set
 docker run --rm \
   -e HIBP_API_KEY="your-key" \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   sh -c 'echo $HIBP_API_KEY'
 ```
 
@@ -507,7 +507,7 @@ Requires Docker Buildx:
 docker buildx create --use
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t ghcr.io/greogory/hibp-checker:latest \
+  -t ghcr.io/theboscoclub/hibp-checker:latest \
   --push \
   .
 ```
@@ -551,7 +551,7 @@ docker run --rm \
   --user $(id -u):$(id -g) \
   -e HIBP_API_KEY="your-key" \
   -v $(pwd)/reports:/app/reports \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 
@@ -565,10 +565,10 @@ Avoid pulling `:latest` every time:
 
 ```bash
 # Pull once
-docker pull ghcr.io/greogory/hibp-checker:v2.3.3
+docker pull ghcr.io/theboscoclub/hibp-checker:v2.3.3
 
 # Use specific tag
-docker run ghcr.io/greogory/hibp-checker:v2.3.3 ...
+docker run ghcr.io/theboscoclub/hibp-checker:v2.3.3 ...
 ```
 
 ### Remove Old Containers
@@ -625,7 +625,7 @@ docker image prune -a
 ### View Image Info
 
 ```bash
-docker inspect ghcr.io/greogory/hibp-checker:latest
+docker inspect ghcr.io/theboscoclub/hibp-checker:latest
 ```
 
 ### Check Container Logs
@@ -643,7 +643,7 @@ docker logs -f hibp-checker
 ```bash
 docker run -it --rm \
   -e HIBP_API_KEY="your-key" \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   bash
 ```
 
@@ -652,7 +652,7 @@ docker run -it --rm \
 ```bash
 docker run --rm \
   -e HIBP_API_KEY="your-key" \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/theboscoclub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e test@example.com -o text -v
 ```
 
@@ -662,22 +662,22 @@ docker run --rm \
 
 ### Pull Image
 ```bash
-docker pull ghcr.io/greogory/hibp-checker:latest
+docker pull ghcr.io/theboscoclub/hibp-checker:latest
 ```
 
 ### Check Single Email
 ```bash
-docker run --rm -e HIBP_API_KEY="key" ghcr.io/greogory/hibp-checker:latest python3 hibp_comprehensive_checker.py -e email@example.com -o text
+docker run --rm -e HIBP_API_KEY="key" ghcr.io/theboscoclub/hibp-checker:latest python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 
 ### Check Multiple Emails
 ```bash
-docker run --rm -e HIBP_API_KEY="key" -v $(pwd)/emails.txt:/app/data/emails.txt:ro ghcr.io/greogory/hibp-checker:latest python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text
+docker run --rm -e HIBP_API_KEY="key" -v $(pwd)/emails.txt:/app/data/emails.txt:ro ghcr.io/theboscoclub/hibp-checker:latest python3 hibp_comprehensive_checker.py --email-file /app/data/emails.txt -o text
 ```
 
 ### With Reports
 ```bash
-docker run --rm -e HIBP_API_KEY="key" -v $(pwd)/reports:/app/reports ghcr.io/greogory/hibp-checker:latest python3 hibp_comprehensive_checker.py -e email@example.com -o json
+docker run --rm -e HIBP_API_KEY="key" -v $(pwd)/reports:/app/reports ghcr.io/theboscoclub/hibp-checker:latest python3 hibp_comprehensive_checker.py -e email@example.com -o json
 ```
 
 ### Docker Compose
@@ -695,9 +695,9 @@ docker-compose up
 ## Links
 
 - **Docker Hub**: Not published (using GitHub Container Registry instead)
-- **GitHub Container Registry**: https://github.com/greogory/hibp-checker/pkgs/container/hibp-checker
-- **Source Code**: https://github.com/greogory/hibp-checker
-- **Issues**: https://github.com/greogory/hibp-checker/issues
+- **GitHub Container Registry**: https://github.com/TheBoscoClub/hibp-checker/pkgs/container/hibp-checker
+- **Source Code**: https://github.com/TheBoscoClub/hibp-checker
+- **Issues**: https://github.com/TheBoscoClub/hibp-checker/issues
 - **HIBP API**: https://haveibeenpwned.com/API/v3
 
 ---

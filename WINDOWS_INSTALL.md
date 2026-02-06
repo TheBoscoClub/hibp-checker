@@ -74,7 +74,7 @@ pip3 --version
 
 ```bash
 # Clone the repository
-git clone https://github.com/greogory/hibp-checker.git
+git clone https://github.com/TheBoscoClub/hibp-checker.git
 cd hibp-checker
 
 # Make scripts executable
@@ -200,10 +200,10 @@ Download the repository files:
 
 ```powershell
 # Option A: Use git (if installed)
-git clone https://github.com/greogory/hibp-checker.git .
+git clone https://github.com/TheBoscoClub/hibp-checker.git .
 
 # Option B: Download ZIP from GitHub
-# Go to https://github.com/greogory/hibp-checker
+# Go to https://github.com/TheBoscoClub/hibp-checker
 # Click "Code" > "Download ZIP"
 # Extract to C:\hibp-checker
 ```
@@ -544,7 +544,7 @@ docker-compose run --rm hibp-checker ./hibp_workflow.sh check > logs\check-%date
 - **HIBP API Issues**: https://haveibeenpwned.com/API/v3
 - **WSL2 Issues**: https://docs.microsoft.com/windows/wsl/
 - **Docker Issues**: https://docs.docker.com/desktop/windows/
-- **Tool Issues**: https://github.com/greogory/hibp-checker/issues
+- **Tool Issues**: https://github.com/TheBoscoClub/hibp-checker/issues
 
 ---
 

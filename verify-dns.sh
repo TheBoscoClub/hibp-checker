@@ -21,11 +21,11 @@ check_domain() {
 
     # Try different DNS query methods
     if command -v dig &> /dev/null; then
-        result=$(dig +short _hibp.$domain TXT 2>/dev/null)
+        result=$(dig +short "_hibp.$domain" TXT 2>/dev/null)
     elif command -v host &> /dev/null; then
-        result=$(host -t TXT _hibp.$domain 2>/dev/null | grep "hibp=" | cut -d'"' -f2)
+        result=$(host -t TXT "_hibp.$domain" 2>/dev/null | grep "hibp=" | cut -d'"' -f2)
     elif command -v nslookup &> /dev/null; then
-        result=$(nslookup -type=TXT _hibp.$domain 2>/dev/null | grep "hibp=" | sed 's/.*"\(.*\)".*/\1/')
+        result=$(nslookup -type=TXT "_hibp.$domain" 2>/dev/null | grep "hibp=" | sed 's/.*"\(.*\)".*/\1/')
     else
         echo -e "${RED}✗ No DNS query tools available (dig, host, or nslookup)${NC}"
         echo "  Install bind-tools or dnsutils package"

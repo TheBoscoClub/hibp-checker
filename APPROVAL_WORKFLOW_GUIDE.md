@@ -46,7 +46,7 @@ When branch protection with required approvals is enabled:
 
 ### Step 1: Navigate to Branch Protection Settings
 
-Go to: https://github.com/greogory/hibp-checker/settings/branches
+Go to: https://github.com/TheBoscoClub/hibp-checker/settings/branches
 
 Or:
 1. Go to your repository
@@ -101,12 +101,12 @@ Click **Save changes** at the bottom
 
 #### Step 1: Navigate to Your Pull Request
 
-Go to: https://github.com/greogory/hibp-checker/pulls
+Go to: https://github.com/TheBoscoClub/hibp-checker/pulls
 
 Or click the PR link that appears when you push a branch:
 ```
 remote: Create a pull request for 'your-branch' on GitHub by visiting:
-remote:      https://github.com/greogory/hibp-checker/pull/new/your-branch
+remote:      https://github.com/TheBoscoClub/hibp-checker/pull/new/your-branch
 ```
 
 #### Step 2: Review the Changes
@@ -222,7 +222,7 @@ git push -u origin update-readme
 gh pr create --title "Update README" --body "Updated readme with new info"
 
 # 5. Go to GitHub web interface and approve the PR
-# Visit: https://github.com/greogory/hibp-checker/pulls
+# Visit: https://github.com/TheBoscoClub/hibp-checker/pulls
 # Click your PR → Files changed → Review changes → Approve → Submit review
 
 # 6. Merge the PR
@@ -240,7 +240,7 @@ When Claude Code makes changes and commits:
 
 ```bash
 # Claude creates a branch and pushes
-# You see: https://github.com/greogory/hibp-checker/pull/new/claude-changes
+# You see: https://github.com/TheBoscoClub/hibp-checker/pull/new/claude-changes
 
 # You need to:
 # 1. Click the link to create PR
@@ -358,7 +358,7 @@ git push -u origin add-new-feature
 Output shows:
 ```
 remote: Create a pull request for 'add-new-feature' on GitHub by visiting:
-remote:      https://github.com/greogory/hibp-checker/pull/new/add-new-feature
+remote:      https://github.com/TheBoscoClub/hibp-checker/pull/new/add-new-feature
 ```
 
 ### 2. Create the Pull Request
@@ -371,7 +371,7 @@ gh pr create --title "Add new feature" --body "Description of changes"
 ```
 
 **Option C: Go to GitHub web:**
-- Visit https://github.com/greogory/hibp-checker
+- Visit https://github.com/TheBoscoClub/hibp-checker
 - GitHub will show a banner: "add-new-feature had recent pushes"
 - Click "Compare & pull request"
 
@@ -515,9 +515,9 @@ git pull origin main
 
 ### Important URLs
 
-- **Your PRs**: https://github.com/greogory/hibp-checker/pulls
-- **Branch Settings**: https://github.com/greogory/hibp-checker/settings/branches
-- **Security Settings**: https://github.com/greogory/hibp-checker/settings/security_analysis
+- **Your PRs**: https://github.com/TheBoscoClub/hibp-checker/pulls
+- **Branch Settings**: https://github.com/TheBoscoClub/hibp-checker/settings/branches
+- **Security Settings**: https://github.com/TheBoscoClub/hibp-checker/settings/security_analysis
 
 ---
 
@@ -552,7 +552,7 @@ When reviewing your own code:
 ## Summary
 
 **Setting up approvals:**
-1. Go to https://github.com/greogory/hibp-checker/settings/branches
+1. Go to https://github.com/TheBoscoClub/hibp-checker/settings/branches
 2. Edit rule for `main`
 3. Enable "Require a pull request before merging"
 4. Set "Required approvals" to `1`

@@ -128,7 +128,7 @@ if [[ "$edit_emails" == "y" ]]; then
 fi
 
 # Count emails
-email_count=$(grep -v '^#' my_emails.txt | grep '@' | wc -l)
+email_count=$(grep -v '^#' my_emails.txt | grep -c '@')
 echo "✅ Configured to monitor $email_count email addresses"
 echo ""
 

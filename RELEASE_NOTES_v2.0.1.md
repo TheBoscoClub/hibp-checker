@@ -37,7 +37,7 @@ The systemd timer has been significantly improved for better reliability:
 
 - **Schedule Change**: Default run time changed from 3 AM to 2 AM
 - **Boot Recovery**: Added `OnBootSec=15min` - automatically runs 15 minutes after boot if the scheduled time was missed (e.g., computer was off at 2 AM)
-- **Path Corrections**: Updated all systemd paths from `~/claude-archive/projects/hibp-project` to `/raid0/ClaudeCodeProjects/hibp-project`
+- **Path Corrections**: Updated all systemd paths from `~/claude-archive/projects/hibp-project` to `/hddRaid1/ClaudeCodeProjects/hibp-project`
 
 These changes ensure the checker runs reliably even if your system isn't powered on 24/7.
 
@@ -85,7 +85,7 @@ systemctl --user restart hibp-checker.timer
 
 ```bash
 # Clone repository
-git clone https://github.com/greogory/hibp-checker.git
+git clone https://github.com/TheBoscoClub/hibp-checker.git
 cd hibp-checker
 git checkout v2.0.1
 
@@ -97,10 +97,10 @@ git checkout v2.0.1
 
 ```bash
 # Pull latest image
-docker pull ghcr.io/greogory/hibp-checker:2.0.1
+docker pull ghcr.io/theboscoclub/hibp-checker:2.0.1
 
 # Or use latest tag
-docker pull ghcr.io/greogory/hibp-checker:latest
+docker pull ghcr.io/theboscoclub/hibp-checker:latest
 ```
 
 ---
@@ -133,8 +133,8 @@ docker pull ghcr.io/greogory/hibp-checker:latest
 Docker images for this release are available at:
 
 ```
-ghcr.io/greogory/hibp-checker:2.0.1
-ghcr.io/greogory/hibp-checker:latest
+ghcr.io/theboscoclub/hibp-checker:2.0.1
+ghcr.io/theboscoclub/hibp-checker:latest
 ```
 
 **Image Details**:
@@ -171,13 +171,13 @@ No security vulnerabilities were fixed in this release. All security features fr
 
 ## 📝 Full Changelog
 
-**Full Changelog**: https://github.com/greogory/hibp-checker/compare/v2.0.0...v2.0.1
+**Full Changelog**: https://github.com/TheBoscoClub/hibp-checker/compare/v2.0.0...v2.0.1
 
 ---
 
 ## 💬 Support
 
-- **Issues**: [GitHub Issues](https://github.com/greogory/hibp-checker/issues)
+- **Issues**: [GitHub Issues](https://github.com/TheBoscoClub/hibp-checker/issues)
 - **Documentation**: [README.md](README.md)
 - **Dashboard Guide**: [DASHBOARD_GUIDE.md](DASHBOARD_GUIDE.md)
 - **Email**: gjbr@pm.me

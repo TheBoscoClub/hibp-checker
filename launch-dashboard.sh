@@ -11,7 +11,8 @@ SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 
 # Source BW_SESSION from persistent file if it exists
 if [[ -f ~/.bw_session ]]; then
-    export BW_SESSION=$(cat ~/.bw_session)
+    BW_SESSION=$(cat ~/.bw_session)
+    export BW_SESSION
 fi
 
 # Navigate to dashboard directory
@@ -24,7 +25,7 @@ if lsof -Pi :5000 -sTCP:LISTEN -t >/dev/null 2>&1; then
     xdg-open http://127.0.0.1:5000 2>/dev/null || open http://127.0.0.1:5000 2>/dev/null || echo "Open http://127.0.0.1:5000 in your browser"
     echo ""
     echo "Press Enter to close this window..."
-    read
+    read -r
     exit 0
 fi
 
@@ -46,7 +47,7 @@ echo "Dashboard is running at: http://127.0.0.1:5000"
 echo "Dashboard PID: $DASHBOARD_PID"
 echo ""
 echo "Press Enter to stop the dashboard and close this window..."
-read
+read -r
 
 # Stop dashboard
 kill $DASHBOARD_PID 2>/dev/null || true
