@@ -1,11 +1,13 @@
 # HIBP Comprehensive Breach & Credential Stuffing Checker
 
+[![CodeFactor](https://www.codefactor.io/repository/github/theboscoclub/hibp-checker/badge)](https://www.codefactor.io/repository/github/theboscoclub/hibp-checker)
+
 | Version | Status | Release |
 |---------|--------|---------|
-| ![2](https://img.shields.io/badge/2-brightgreen)![3](https://img.shields.io/badge/3-darkgreen)![3](https://img.shields.io/badge/3-green) | Latest patch | [v2.3.3](https://github.com/greogory/hibp-checker/releases/tag/v2.3.3) |
-| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-darkred)![2](https://img.shields.io/badge/2-red)![2](https://img.shields.io/badge/2-orange) | Prior tweak | [v2.3.2.2](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.2) |
-| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-darkred)![2](https://img.shields.io/badge/2-red)![1](https://img.shields.io/badge/1-orange) | Prior tweak | [v2.3.2.1](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2.1) |
-| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-darkred)![2](https://img.shields.io/badge/2-red) | Prior patch | [v2.3.2](https://github.com/greogory/hibp-checker/releases/tag/v2.3.2) |
+| ![2](https://img.shields.io/badge/2-brightgreen)![3](https://img.shields.io/badge/3-darkgreen)![3](https://img.shields.io/badge/3-green) | Latest patch | [v2.3.3](https://github.com/TheBoscoClub/hibp-checker/releases/tag/v2.3.3) |
+| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-darkred)![2](https://img.shields.io/badge/2-red)![2](https://img.shields.io/badge/2-orange) | Prior tweak | [v2.3.2.2](https://github.com/TheBoscoClub/hibp-checker/releases/tag/v2.3.2.2) |
+| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-darkred)![2](https://img.shields.io/badge/2-red)![1](https://img.shields.io/badge/1-orange) | Prior tweak | [v2.3.2.1](https://github.com/TheBoscoClub/hibp-checker/releases/tag/v2.3.2.1) |
+| ![2](https://img.shields.io/badge/2-brightred)![3](https://img.shields.io/badge/3-darkred)![2](https://img.shields.io/badge/2-red) | Prior patch | [v2.3.2](https://github.com/TheBoscoClub/hibp-checker/releases/tag/v2.3.2) |
 
 <details>
 <summary>Badge Color Convention</summary>
@@ -65,7 +67,7 @@ This project uses data from **Have I Been Pwned**, licensed under [Creative Comm
 
 ### 🐧 Linux (Native)
 ```bash
-git clone https://github.com/greogory/hibp-checker.git
+git clone https://github.com/TheBoscoClub/hibp-checker.git
 cd hibp-checker
 ./quick_start.sh
 ```
@@ -74,7 +76,7 @@ cd hibp-checker
 ```bash
 docker run --rm \
   -e HIBP_API_KEY="your-api-key" \
-  ghcr.io/greogory/hibp-checker:latest \
+  ghcr.io/TheBoscoClub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 
@@ -246,7 +248,7 @@ Our tool specifically queries the stealer log API endpoints to identify where yo
 
 ```bash
 # Clone the repository
-git clone https://github.com/greogory/hibp-checker.git
+git clone https://github.com/TheBoscoClub/hibp-checker.git
 cd hibp-checker
 
 # Make scripts executable
@@ -725,7 +727,7 @@ Fully supported and tested on:
 Supported via Docker. Not tested natively by the maintainer (no Windows dev environment).
 
 ```bash
-docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/greogory/hibp-checker:latest \
+docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/TheBoscoClub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 
@@ -737,7 +739,7 @@ docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/greogory/hibp-checker:latest 
 Supported via Docker. Not tested natively by the maintainer (no macOS dev environment).
 
 ```bash
-docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/greogory/hibp-checker:latest \
+docker run --rm -e HIBP_API_KEY="your-key" ghcr.io/TheBoscoClub/hibp-checker:latest \
   python3 hibp_comprehensive_checker.py -e email@example.com -o text
 ```
 
