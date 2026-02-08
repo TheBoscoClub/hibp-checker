@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 #
 # HIBP Dashboard Startup Script for macOS
 #
@@ -39,7 +39,7 @@ else
 fi
 
 # Get script directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="${0:A:h}"
 
 echo ""
 echo "Starting HIBP Dashboard..."

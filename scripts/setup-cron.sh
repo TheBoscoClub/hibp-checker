@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 #
 # HIBP Checker - Cron Setup Script
 #
@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="${0:A:h}"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 LOG_DIR="${HOME}/.local/share/hibp-checker"
 CONFIG_DIR="${HOME}/.config/hibp-checker"
@@ -62,7 +62,7 @@ if [[ -f "${HOME}/.config/hibp-checker/hibp-checker.env" ]]; then
 fi
 
 # Get script directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="${0:A:h}"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Run the checker

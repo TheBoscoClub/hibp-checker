@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 #
 # Bitwarden Session Setup
 # Unlocks your Bitwarden vault and saves the session token to ~/.bw_session

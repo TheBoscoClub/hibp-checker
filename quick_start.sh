@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # HIBP Quick Start & Test Script
 # Uses HIBP's test accounts to verify everything works before using real data

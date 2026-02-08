@@ -294,7 +294,6 @@ This project uses the following installed tools for comprehensive security audit
 
 | Tool | Purpose | Command |
 |------|---------|---------|
-| **shellcheck** | Static analysis for shell scripts | `shellcheck bin/*.sh scripts/*.sh` |
 | **shfmt** | Shell script formatting validation | `shfmt -d bin/*.sh` |
 
 ### Docker/Container (4 Dockerfiles)
@@ -335,7 +334,6 @@ bandit -r . -x ./snapshots,./venv -f txt
 pip-audit --desc
 
 # Shell scripts
-find . -name "*.sh" -not -path "./snapshots/*" -exec shellcheck {} \;
 
 # Docker
 hadolint Dockerfile

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 #
 # HIBP Checker - Systemd Setup Script
 #
@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="${0:A:h}"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 SYSTEMD_USER_DIR="${HOME}/.config/systemd/user"
 LOG_DIR="${HOME}/.local/share/hibp-checker"

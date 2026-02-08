@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 # DNS TXT Record Verification Helper for HIBP
 # Checks if the HIBP verification TXT records are properly configured
 
