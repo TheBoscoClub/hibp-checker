@@ -12,14 +12,14 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744  # v3
+      uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
       with:
         fetch-depth: 0  # Full history for better analysis
 
     - name: Set up Python
       uses: actions/setup-python@7f4fc3e22c37d6ff65e88745f38bd3157c663f7c  # v4
       with:
-        python-version: '3.9'
+        python-version: '3.14'
 
     - name: Check for hardcoded API keys
       run: |
@@ -67,12 +67,16 @@ jobs:
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests safety
+        pip install pip-audit
 
     - name: Check Python dependencies for vulnerabilities
       run: |
         echo "Checking dependencies for known vulnerabilities..."
-        safety check --json || echo "⚠️  Warning: Vulnerabilities found, review manually"
+        if [ -f requirements.txt ]; then
+          pip-audit -r requirements.txt --desc || echo "⚠️  Warning: Vulnerabilities found, review manually"
+        else
+          echo "No requirements.txt found, skipping"
+        fi
 
     - name: Verify no reports committed
       run: |
