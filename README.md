@@ -1,5 +1,7 @@
 # HIBP Comprehensive Breach & Credential Stuffing Checker
 
+[![codecov](https://codecov.io/gh/TheBoscoClub/hibp-checker/graph/badge.svg)](https://codecov.io/gh/TheBoscoClub/hibp-checker) [![CodeFactor](https://www.codefactor.io/repository/github/theboscoclub/hibp-checker/badge)](https://www.codefactor.io/repository/github/theboscoclub/hibp-checker)
+
 | Version | Status | Release |
 |---------|--------|---------|
 | ![2](https://img.shields.io/badge/2-brightgreen)![3](https://img.shields.io/badge/3-darkgreen)![3](https://img.shields.io/badge/3-green) | Latest patch | [v2.3.3](https://github.com/TheBoscoClub/hibp-checker/releases/tag/v2.3.3) |
