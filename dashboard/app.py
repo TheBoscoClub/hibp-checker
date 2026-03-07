@@ -150,7 +150,8 @@ def parse_text_report(filepath):
         return summary
     except Exception as e:
         # Log the actual error internally, but don't expose details to users
-        logger.error("Error parsing report %s: %s", real_path.name, e)
+        safe_name = real_path.name.replace('\n', '').replace('\r', '')
+        logger.error("Error parsing report %s: %s", safe_name, e)
         return {
             'filename': real_path.name,
             'error': 'Failed to parse report file',
@@ -207,7 +208,9 @@ def get_log_content(log_type='workflow'):
                 return ''.join(lines[-500:])
         except Exception as e:
             # Log the actual error internally, but don't expose details
-            logger.error("Error reading log %s: %s", log_type, e)
+            # Sanitize log_type to prevent log injection via newlines
+            safe_type = log_type.replace('\n', '').replace('\r', '')
+            logger.error("Error reading log %s: %s", safe_type, e)
             return "Error reading log file"
     return "Log file not found"
 
