@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
 # HIBP Automated Workflow for Claude Code
 # Wrapper script for comprehensive breach checking
@@ -27,7 +27,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-SCRIPT_DIR="${0:A:h}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PYTHON_SCRIPT="${SCRIPT_DIR}/hibp_comprehensive_checker.py"
 CONFIG_FILE="${SCRIPT_DIR}/hibp_config.conf"
 

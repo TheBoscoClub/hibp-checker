@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 #
 # HIBP Dashboard Launcher
 # This script launches the dashboard and opens the browser

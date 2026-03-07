@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
 # HIBP Multi-Email Automation Example
 # ====================================
@@ -7,7 +7,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="${0:A:h}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "================================================"
 echo "HIBP Multi-Email Monitoring Setup"

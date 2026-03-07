@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
 # Claude Code Security Automation Pipeline
 # Comprehensive breach monitoring with automated response
@@ -10,7 +10,7 @@ set -euo pipefail
 # Configuration
 # ============================================
 
-SCRIPT_DIR="${0:A:h}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HIBP_CHECKER="${SCRIPT_DIR}/hibp_workflow.sh"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 SECURITY_LOG="${SCRIPT_DIR}/security_audit_${TIMESTAMP}.log"
