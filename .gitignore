@@ -198,6 +198,10 @@ nohup.out
 .claude-exit
 .claude-state
 .claude-tmp/
+n# Session recovery files (may contain conversation transcripts with secrets)
+.claude-session-context.md
+.claude-session-ring.jsonl
+.claude-task-state.md
 
 # Session exit timestamps
 exit.*
@@ -344,6 +348,8 @@ rnd/ui-test-logs/
 
 # Session records (may contain credentials, IPs, tokens)
 SESSION_RECORD*.md
+.claude-session-active
+.claude-checkpoint-notes.md
 *-session-record.md
 
 # VM credentials and configuration
@@ -361,3 +367,16 @@ local-ips.txt
 vm-ips.txt
 *-local-config*
 
+
+# Claude Code workflow files
+.claude/hookify.*.local.md
+.claude-checkpoint.md
+.claude-recovery-plan.md
+.session-count
+SESSION_RECORD*.md.lock
+.btrbk-snapshots/
+.test-vm-state
+.test-mcp-enabled
+.test-skill.md
+test-*-[0-9][0-9].md
+.staged-release
