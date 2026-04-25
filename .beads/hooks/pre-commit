@@ -1,0 +1,86 @@
+#!/bin/bash
+# Pre-commit hook to prevent committing sensitive files
+# This protects API keys, email lists, and reports from being committed
+
+set -e
+
+echo "Running pre-commit security checks..."
+
+# List of sensitive files that should NEVER be committed
+SENSITIVE_FILES=(
+    "hibp_config.conf"
+    "my_emails.txt"
+    "passwords.txt"
+)
+
+# Check if any sensitive files are staged
+FOUND_SENSITIVE=0
+for file in "${SENSITIVE_FILES[@]}"; do
+    if git diff --cached --name-only | grep -q "^$file$"; then
+        echo "❌ ERROR: Attempting to commit sensitive file: $file"
+        echo "   Remove with: git reset HEAD $file"
+        FOUND_SENSITIVE=1
+    fi
+done
+
+# Check for API keys in staged files
+if git diff --cached | grep -iE 'HIBP_API_KEY.*=.*["\047][a-f0-9]{32}["\047]' > /dev/null; then
+    echo "❌ ERROR: API key detected in staged changes"
+    echo "   Use environment variables instead"
+    FOUND_SENSITIVE=1
+fi
+
+# Check for report files
+if git diff --cached --name-only | grep -E 'hibp_report.*\.(txt|json|csv)$' > /dev/null; then
+    echo "❌ ERROR: Attempting to commit report files"
+    echo "   Reports contain sensitive breach data"
+    FOUND_SENSITIVE=1
+fi
+
+# Check for .gitignore modifications that expose sensitive files
+if git diff --cached .gitignore | grep -E '^\-.*hibp_config\.conf' > /dev/null; then
+    echo "❌ ERROR: Attempting to remove hibp_config.conf from .gitignore"
+    echo "   This would expose API keys"
+    FOUND_SENSITIVE=1
+fi
+
+if git diff --cached .gitignore | grep -E '^\-.*my_emails\.txt' > /dev/null; then
+    echo "❌ ERROR: Attempting to remove my_emails.txt from .gitignore"
+    echo "   This would expose email addresses"
+    FOUND_SENSITIVE=1
+fi
+
+# If any sensitive data found, abort commit
+if [ $FOUND_SENSITIVE -eq 1 ]; then
+    echo ""
+    echo "💡 Commit aborted to protect sensitive data"
+    echo "   Review your staged changes and remove sensitive information"
+    exit 1
+fi
+
+echo "✅ Security checks passed"
+exit 0
+
+# --- BEGIN BEADS INTEGRATION v1.0.3 ---
+# This section is managed by beads. Do not remove these markers.
+if command -v bd >/dev/null 2>&1; then
+  export BD_GIT_HOOK=1
+  _bd_timeout=${BEADS_HOOK_TIMEOUT:-300}
+  if command -v timeout >/dev/null 2>&1; then
+    timeout "$_bd_timeout" bd hooks run pre-commit "$@"
+    _bd_exit=$?
+    if [ $_bd_exit -eq 124 ]; then
+      echo >&2 "beads: hook 'pre-commit' timed out after ${_bd_timeout}s — continuing without beads"
+      _bd_exit=0
+    fi
+  else
+    bd hooks run pre-commit "$@"
+    _bd_exit=$?
+  fi
+  if [ $_bd_exit -eq 3 ]; then
+    echo >&2 "beads: database not initialized — skipping hook 'pre-commit'"
+    _bd_exit=0
+  fi
+  if [ $_bd_exit -ne 0 ]; then exit $_bd_exit; fi
+fi
+# --- END BEADS INTEGRATION v1.0.3 ---

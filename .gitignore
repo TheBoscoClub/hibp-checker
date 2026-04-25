@@ -307,6 +307,7 @@ PHASE*_COVERAGE_*.txt
 *.temp
 *.bak
 *.swp
+*.lock
 .cache/
 .temp/
 tmp/
@@ -380,3 +381,7 @@ SESSION_RECORD*.md.lock
 .test-skill.md
 test-*-[0-9][0-9].md
 .staged-release
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+.beads-credential-key
