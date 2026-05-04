@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+### Security
+
+- **`requests` upgrade to 2.33.1**: Bumped from `2.32.5` in `requirements.txt` to address [GHSA-gc5v-m9x4-r6x2](https://github.com/advisories/GHSA-gc5v-m9x4-r6x2) — insecure temp file reuse in `requests.utils.extract_zipped_paths()` (CVSS 4.4, medium). The vulnerable utility is not invoked by this project (HIBP client uses HTTPS only, no zip extraction), but the dependency is upgraded per the security baseline policy
+
 ## [2.3.3] - 2026-01-14
 
 ### Added
