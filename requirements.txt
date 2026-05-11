@@ -14,5 +14,5 @@ pynacl>=1.6.2       # CVE-2025-69277
 # Testing dependencies
 pytest>=7.4.0
 pytest-cov>=4.1.0
-pytest-mock>=3.11.0
+pytest-mock>=3.15.1
 responses>=0.23.0
