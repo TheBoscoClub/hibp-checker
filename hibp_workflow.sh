@@ -31,6 +31,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PYTHON_SCRIPT="${SCRIPT_DIR}/hibp_comprehensive_checker.py"
 CONFIG_FILE="${SCRIPT_DIR}/hibp_config.conf"
 
+# The single canonical credential store (~/.claude/rules/security.md). The key
+# is read FROM here on demand and is deliberately not exported into the shell
+# environment at login: doing that put it into every descendant process, and
+# from there into crash artifacts (bd cachyos-sentinel-2miz).
+CANONICAL_KEY_STORE="${HIBP_KEY_STORE:-$HOME/.config/api-keys.env}"
+
 # XDG-compliant data directories (separates runtime data from code)
 # Override with HIBP_DATA_DIR for custom locations (e.g., Docker: /app)
 XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
@@ -68,19 +74,49 @@ log() {
     esac
 }
 
+# Read ONE variable out of the canonical credential store.
+#
+# Sourced in a SUBSHELL and only the single value is printed back, so the
+# other ~28 credentials in that file never enter this script's environment —
+# importing all of them is precisely the fan-out that 2miz was filed on.
+# The value is captured into a variable and never logged or echoed.
+read_key_from_canonical_store() {
+    [[ -r "$CANONICAL_KEY_STORE" ]] || return 1
+    (
+        set +u
+        # shellcheck disable=SC1090
+        . "$CANONICAL_KEY_STORE" >/dev/null 2>&1 || exit 1
+        printf '%s' "${HIBP_API_KEY:-}"
+    )
+}
+
 # Load configuration
 load_config() {
-    # Preserve environment variable if already set (recommended method)
+    # Preserve environment variable if already set (highest precedence)
     local env_api_key="$HIBP_API_KEY"
 
     if [[ -f "$CONFIG_FILE" ]]; then
         source "$CONFIG_FILE"
         log INFO "Configuration loaded from $CONFIG_FILE"
 
-        # If environment variable was set, use it (takes precedence)
+        # Precedence: environment > canonical store > config file.
+        # The canonical store outranks the config file deliberately — a key
+        # left in hibp_config.conf is a second copy that drifts silently at
+        # the next rotation, and a stale copy that still "works" is how a
+        # rotation appears to succeed while something keeps using the old
+        # value.
         if [[ -n "$env_api_key" ]]; then
             HIBP_API_KEY="$env_api_key"
             log INFO "Using HIBP_API_KEY from environment variable"
+        else
+            local store_key
+            if store_key="$(read_key_from_canonical_store)" && [[ -n "$store_key" ]]; then
+                HIBP_API_KEY="$store_key"
+                log INFO "Using HIBP_API_KEY from $CANONICAL_KEY_STORE"
+            elif [[ -n "$HIBP_API_KEY" ]]; then
+                log WARNING "Using HIBP_API_KEY from $CONFIG_FILE — move it to $CANONICAL_KEY_STORE; a second copy drifts at the next rotation"
+            fi
+            unset store_key
         fi
     else
         log ERROR "Configuration file not found: $CONFIG_FILE"
@@ -286,7 +322,11 @@ track_new_breaches() {
 
 # Run the Python checker
 run_checker() {
-    local cmd="python3 $PYTHON_SCRIPT -k '$HIBP_API_KEY'"
+    # The key is passed through the ENVIRONMENT, never argv. It used to be
+    # interpolated as -k '<key>', which put it in the process command line
+    # where `ps` exposes it to every user on the host and where any crash
+    # artifact or process listing captures it.
+    local cmd="HIBP_API_KEY=\"\$HIBP_API_KEY\" python3 $PYTHON_SCRIPT"
     
     # Add emails
     if [[ -n "$EMAIL_ADDRESSES" ]]; then

@@ -59,11 +59,29 @@ echo "Test accounts created in test_emails.txt:"
 cat test_emails.txt
 echo ""
 
-# Check if API key exists
-if [[ -f "hibp_config.conf" ]]; then
+# The single canonical credential store (~/.claude/rules/security.md).
+CANONICAL_KEY_STORE="${HIBP_KEY_STORE:-$HOME/.config/api-keys.env}"
+
+# Check the canonical store FIRST. Sourced in a subshell so only this one
+# value crosses — the store holds every credential on the host, and pulling
+# all of them into this shell is the fan-out that bd cachyos-sentinel-2miz
+# was filed on.
+if [[ -r "$CANONICAL_KEY_STORE" ]]; then
+    API_KEY="$(
+        set +u
+        # shellcheck disable=SC1090
+        . "$CANONICAL_KEY_STORE" >/dev/null 2>&1 || true
+        printf '%s' "${HIBP_API_KEY:-}"
+    )"
+    [[ -n "$API_KEY" ]] && echo "✅ Found API key in $CANONICAL_KEY_STORE"
+fi
+
+# Fall back to a key left in the config file by an older setup.
+if [[ -z "${API_KEY:-}" ]] && [[ -f "hibp_config.conf" ]]; then
     source hibp_config.conf
     if [[ -n "$HIBP_API_KEY" ]]; then
-        echo "✅ Found API key in configuration"
+        echo "⚠️  Found API key in hibp_config.conf — move it to $CANONICAL_KEY_STORE"
+        echo "    A second copy drifts silently at the next rotation."
         API_KEY="$HIBP_API_KEY"
     fi
 fi
@@ -103,7 +121,9 @@ if [[ "$setup_real" == "y" ]]; then
     if [[ ! -f "hibp_config.conf" ]]; then
         cat > hibp_config.conf << EOF
 # HIBP Configuration File
-HIBP_API_KEY="$API_KEY"
+# The API key is deliberately NOT stored here. It lives only in the canonical
+# store (~/.config/api-keys.env) and is read on demand.
+HIBP_API_KEY=""
 EMAIL_ADDRESSES=""
 EMAIL_FILE=""
 PASSWORDS=""
@@ -125,8 +145,17 @@ EOF
         echo "✅ Configuration file created: hibp_config.conf"
     fi
     
-    # Update API key in config
-    sed -i "s/^HIBP_API_KEY=.*/HIBP_API_KEY=\"$API_KEY\"/" hibp_config.conf
+    # The API key is deliberately NOT written into hibp_config.conf. It
+    # belongs in the canonical store only; a copy here would be a second
+    # source of truth that goes stale at the next rotation while still
+    # looking valid.
+    if ! grep -q "^HIBP_API_KEY=" "$CANONICAL_KEY_STORE" 2>/dev/null; then
+        echo ""
+        echo "⚠️  Add your key to the canonical store before running a check:"
+        echo "      # Have I Been Pwned — API key for hibp-checker breach lookups"
+        echo "      HIBP_API_KEY=<your key>"
+        echo "    in $CANONICAL_KEY_STORE   (then: chmod 600 \"$CANONICAL_KEY_STORE\")"
+    fi
     
     echo ""
     echo "How would you like to configure your email addresses?"

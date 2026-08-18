@@ -19,6 +19,7 @@ Purpose: Deep dive into HIBP data to identify password compromises,
          stealer logs, and credential stuffing threats
 """
 
+import os
 import requests
 import json
 import sys
@@ -410,8 +411,13 @@ def main():
 
     parser.add_argument(
         "-k", "--api-key",
-        required=True,
-        help="HIBP API key"
+        default=os.environ.get("HIBP_API_KEY", ""),
+        help=(
+            "HIBP API key. Defaults to $HIBP_API_KEY, which is the preferred "
+            "route: a key passed on the command line appears in the process "
+            "argv and is readable by every user on the host via `ps`, and is "
+            "captured into crash artifacts and process listings."
+        ),
     )
 
     parser.add_argument(
@@ -472,6 +478,18 @@ def main():
     if args.password_file:
         with open(args.password_file, 'r') as f:
             passwords.extend([line.strip() for line in f if line.strip()])
+
+    # The key is no longer `required=True` at the argparse layer, so its
+    # absence must be caught here — otherwise an empty key reaches the API as
+    # a valid-looking request and returns 401, which reads as "bad key" rather
+    # than "no key was supplied".
+    if not args.api_key:
+        print(
+            "ERROR: no HIBP API key. Set HIBP_API_KEY in the environment "
+            "(preferred) or pass --api-key.",
+            file=sys.stderr,
+        )
+        sys.exit(2)
 
     # Initialize checker
     checker = HIBPChecker(args.api_key, verbose=args.verbose)
