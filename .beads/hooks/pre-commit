@@ -38,13 +38,13 @@ if git diff --cached --name-only | grep -E 'hibp_report.*\.(txt|json|csv)$' > /d
 fi
 
 # Check for .gitignore modifications that expose sensitive files
-if git diff --cached .gitignore | grep -E '^\-.*hibp_config\.conf' > /dev/null; then
+if git diff --cached .gitignore | grep -E '^-.*hibp_config\.conf' > /dev/null; then
     echo "❌ ERROR: Attempting to remove hibp_config.conf from .gitignore"
     echo "   This would expose API keys"
     FOUND_SENSITIVE=1
 fi
 
-if git diff --cached .gitignore | grep -E '^\-.*my_emails\.txt' > /dev/null; then
+if git diff --cached .gitignore | grep -E '^-.*my_emails\.txt' > /dev/null; then
     echo "❌ ERROR: Attempting to remove my_emails.txt from .gitignore"
     echo "   This would expose email addresses"
     FOUND_SENSITIVE=1
