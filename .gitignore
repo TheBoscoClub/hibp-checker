@@ -351,6 +351,7 @@ rnd/ui-test-logs/
 SESSION_RECORD*.md
 .claude-session-active
 .claude-checkpoint-notes.md
+.claude-checkpoint
 *-session-record.md
 
 # VM credentials and configuration
