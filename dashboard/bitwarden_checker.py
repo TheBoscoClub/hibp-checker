@@ -4,6 +4,7 @@ Provides subprocess management and task tracking for running bw-hibp-stream.py
 from the web dashboard.
 """
 
+import logging
 import os
 import subprocess  # nosec B404 - required for bw CLI integration
 import json
@@ -14,6 +15,8 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 from dataclasses import dataclass
 from enum import Enum
+
+logger = logging.getLogger(__name__)
 
 
 class TaskStatus(Enum):
@@ -165,7 +168,10 @@ class BitwardenChecker:
             except subprocess.TimeoutExpired:
                 result['errors'].append('Bitwarden status check timed out')
             except Exception as e:
-                result['errors'].append(f'Could not check vault status: {str(e)}')
+                # The errors list is returned verbatim by /api/bitwarden/status;
+                # exception text (paths, OS error strings) stays in the server log.
+                logger.warning('Could not check vault status: %s', e)
+                result['errors'].append('Could not check vault status; see the server log')
 
         return result
 
@@ -324,11 +330,17 @@ class BitwardenChecker:
 
     def get_report_by_filename(self, filename: str) -> Optional[Dict[str, Any]]:
         """Get a specific report by filename."""
-        # Sanitize filename to prevent path traversal
+        # Sanitize filename to prevent path traversal: keep only the basename,
+        # then prove the resolved path is a .json file directly inside the
+        # (resolved) reports directory, so neither a stray path component nor
+        # a symlink planted in the directory can escape it.
         safe_filename = Path(filename).name
-        filepath = self.reports_dir / safe_filename
+        if not safe_filename or safe_filename.startswith('.'):
+            return None
+        reports_dir = self.reports_dir.resolve()
+        filepath = (reports_dir / safe_filename).resolve()
 
-        if filepath.exists() and filepath.suffix == '.json':
+        if filepath.parent == reports_dir and filepath.suffix == '.json' and filepath.is_file():
             try:
                 with open(filepath) as f:
                     return json.load(f)

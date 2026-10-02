@@ -273,6 +273,30 @@ class TestCheckPrerequisites:
         assert result['vault_unlocked'] is False
 
 
+    def test_prerequisites_vault_status_error_does_not_leak_exception(self, temp_dir, monkeypatch):
+        """An unexpected failure in `bw status` must not surface the exception text.
+
+        The errors list is returned verbatim by /api/bitwarden/status, so any
+        exception message (paths, usernames, OS error text) would reach the
+        browser. The user gets a fixed message; the detail belongs in the log.
+        """
+        monkeypatch.setenv('BW_SESSION', 'test_session')
+
+        checker = BitwardenChecker(temp_dir)
+
+        with patch('subprocess.run') as mock_run:
+            mock_run.side_effect = [
+                MagicMock(returncode=0),  # which bw
+                OSError("/home/alice/.config/Bitwarden CLI/data.json: Permission denied"),
+            ]
+
+            result = checker.check_prerequisites()
+
+        assert result['vault_unlocked'] is False
+        assert any('vault status' in e for e in result['errors'])
+        assert not any('alice' in e or 'Permission denied' in e for e in result['errors'])
+
+
 class TestStartCheck:
     """Tests for the start_check() method."""
 
