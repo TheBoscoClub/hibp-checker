@@ -30,7 +30,56 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge for patch and minor updates
+      # main has no required status checks, so `gh pr merge --auto` merges
+      # the instant it runs - before the CI, lint and security workflows
+      # triggered by the same event have reported. Wait for every other
+      # check on the PR head to finish and pass first; this job's own check
+      # is excluded or it would wait on itself.
+      - name: Wait for the other checks on this PR to pass
+        if: >-
+          steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
+          steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        run: |
+          set -euo pipefail
+          sleep 60   # let the sibling workflows register their check runs
+          deadline=$(( $(date +%s) + 1800 ))
+          while :; do
+            checks=$(gh pr checks "$PR_URL" --json name,bucket || true)
+            if [[ -z "$checks" || "$checks" == "[]" ]]; then
+              echo "no check runs reported yet"
+            else
+              failed=$(jq -r --arg self "$SELF" \
+                '[.[] | select(.name != $self
+                       and (.bucket == "fail" or .bucket == "cancel"))
+                  | .name] | join(", ")' <<<"$checks")
+              if [[ -n "$failed" ]]; then
+                echo "::error::Not merging: failed checks: $failed"
+                exit 1
+              fi
+              pending=$(jq -r --arg self "$SELF" \
+                '[.[] | select(.name != $self and .bucket == "pending")]
+                  | length' <<<"$checks")
+              tests_passed=$(jq -r \
+                '[.[] | select(.name == "Python Tests" and .bucket == "pass")]
+                  | length' <<<"$checks")
+              if [[ "$pending" == "0" && "$tests_passed" != "0" ]]; then
+                echo "all other checks passed"
+                break
+              fi
+              echo "waiting: $pending pending, tests passed=$tests_passed"
+            fi
+            if (( $(date +%s) > deadline )); then
+              echo "::error::Timed out waiting for checks"
+              exit 1
+            fi
+            sleep 30
+          done
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          SELF: Auto-Merge Dependabot
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge patch and minor updates
         if: >-
           steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
           steps.metadata.outputs.update-type == 'version-update:semver-minor'

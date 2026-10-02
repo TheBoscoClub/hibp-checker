@@ -1,2 +1,15 @@
+# The project's only ruff configuration. ruff.toml takes precedence over any
+# [tool.ruff] table in pyproject.toml, so rules live here and nowhere else.
+#
+# Rules are selected explicitly. ruff 0.16 grew its default set from 59 to
+# 413 rules, and an implicit default turns every ruff release into a lint
+# change that CI reports as a regression in unchanged code.
+extend-exclude = [".snapshots", ".codeql-db"]
+
+[lint]
+select = ["E", "F", "W"]
+ignore = ["E501"]  # line length is the formatter's job
+
 [lint.per-file-ignores]
+# E402: tests manipulate sys.path before importing the modules under test
 "tests/**" = ["E402"]

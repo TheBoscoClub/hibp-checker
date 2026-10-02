@@ -1,0 +1,231 @@
+{
+  "about": "Local CodeQL findings (codeql-scan-all, results-python.sarif) with their disposition, per security.md. Every finding is either fixed or listed here with a reason; GitHub default-setup CodeQL raises the same rules and those alerts carry the same dismissals.",
+  "scan": "2026-10-02",
+  "fixed": [
+    {
+      "rule": "py/stack-trace-exposure",
+      "path": "dashboard/app.py",
+      "line": 348,
+      "fix": "2026-10-02: check_prerequisites() no longer appends str(e) to the errors list that /api/bitwarden/status returns; the detail goes to the server log. GitHub alert 76."
+    }
+  ],
+  "dismissed": [
+    {
+      "rule": "py/clear-text-logging-sensitive-data",
+      "path": "check-bitwarden-passwords.py",
+      "line": 197,
+      "reason": "false positive",
+      "comment": "The printed values are pass/fail counts and redact_sensitive() output (masked, e.g. 'user****'), never the password. Matches GitHub alerts 1, 16-21, 39, 47, 48."
+    },
+    {
+      "rule": "py/clear-text-logging-sensitive-data",
+      "path": "check-bitwarden-passwords.py",
+      "line": 238,
+      "reason": "false positive",
+      "comment": "The printed values are pass/fail counts and redact_sensitive() output (masked, e.g. 'user****'), never the password. Matches GitHub alerts 1, 16-21, 39, 47, 48."
+    },
+    {
+      "rule": "py/clear-text-logging-sensitive-data",
+      "path": "check-passwords.py",
+      "line": 105,
+      "reason": "false positive",
+      "comment": "The printed values are pass/fail counts and redact_sensitive() output (masked, e.g. 'user****'), never the password. Matches GitHub alerts 1, 16-21, 39, 47, 48."
+    },
+    {
+      "rule": "py/clear-text-logging-sensitive-data",
+      "path": "check-passwords.py",
+      "line": 129,
+      "reason": "false positive",
+      "comment": "The printed values are pass/fail counts and redact_sensitive() output (masked, e.g. 'user****'), never the password. Matches GitHub alerts 1, 16-21, 39, 47, 48."
+    },
+    {
+      "rule": "py/clear-text-logging-sensitive-data",
+      "path": "hibp_comprehensive_checker.py",
+      "line": 512,
+      "reason": "false positive",
+      "comment": "The printed values are pass/fail counts and redact_sensitive() output (masked, e.g. 'user****'), never the password. Matches GitHub alerts 1, 16-21, 39, 47, 48."
+    },
+    {
+      "rule": "py/clear-text-storage-sensitive-data",
+      "path": "hibp_comprehensive_checker.py",
+      "line": 366,
+      "reason": "false positive",
+      "comment": "What is stored is the breach-check result (counts and breach names), not the credential. Matches GitHub alerts 2, 3."
+    },
+    {
+      "rule": "py/clear-text-storage-sensitive-data",
+      "path": "hibp_comprehensive_checker.py",
+      "line": 380,
+      "reason": "false positive",
+      "comment": "What is stored is the breach-check result (counts and breach names), not the credential. Matches GitHub alerts 2, 3."
+    },
+    {
+      "rule": "py/incomplete-url-substring-sanitization",
+      "path": "tests/unit/test_hibp_comprehensive_checker.py",
+      "line": 440,
+      "reason": "false positive",
+      "comment": "Test fixtures: the strings are breach-domain names used as expected values in assertions, not URL validation. Matches GitHub alerts 28-30."
+    },
+    {
+      "rule": "py/incomplete-url-substring-sanitization",
+      "path": "tests/unit/test_hibp_comprehensive_checker.py",
+      "line": 450,
+      "reason": "false positive",
+      "comment": "Test fixtures: the strings are breach-domain names used as expected values in assertions, not URL validation. Matches GitHub alerts 28-30."
+    },
+    {
+      "rule": "py/incomplete-url-substring-sanitization",
+      "path": "tests/unit/test_hibp_comprehensive_checker.py",
+      "line": 451,
+      "reason": "false positive",
+      "comment": "Test fixtures: the strings are breach-domain names used as expected values in assertions, not URL validation. Matches GitHub alerts 28-30."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/app.py",
+      "line": 61,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/app.py",
+      "line": 106,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/app.py",
+      "line": 113,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/app.py",
+      "line": 114,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/app.py",
+      "line": 252,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/app.py",
+      "line": 334,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/app.py",
+      "line": 337,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/bitwarden_checker.py",
+      "line": 341,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/bitwarden_checker.py",
+      "line": 343,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/path-injection",
+      "path": "dashboard/bitwarden_checker.py",
+      "line": 345,
+      "reason": "false positive",
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "bw-hibp-stream.py",
+      "line": 75,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "check-bitwarden-passwords.py",
+      "line": 51,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "check-passwords.py",
+      "line": 34,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "hibp_comprehensive_checker.py",
+      "line": 233,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "tests/fixtures/sample_data.py",
+      "line": 27,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "tests/unit/test_check_passwords.py",
+      "line": 127,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "tests/unit/test_check_passwords.py",
+      "line": 147,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "tests/unit/test_check_passwords.py",
+      "line": 269,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "tests/unit/test_check_passwords.py",
+      "line": 278,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "tests/unit/test_check_passwords.py",
+      "line": 279,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    },
+    {
+      "rule": "py/weak-sensitive-data-hashing",
+      "path": "tests/unit/test_check_passwords.py",
+      "line": 286,
+      "reason": "won't fix",
+      "comment": "SHA-1 is the hash the HIBP Pwned Passwords range API requires for k-anonymity lookups: the client sends the first five hex characters of the SHA-1 and matches the suffix locally. SHA-256 would break the API contract. Every hashlib call carries usedforsecurity=False. Matches GitHub alerts 4, 22-24, 31-36, 55-58, 68-73, 75."
+    }
+  ]
+}
