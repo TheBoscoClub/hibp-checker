@@ -85,70 +85,70 @@
       "path": "dashboard/app.py",
       "line": 61,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/app.py",
       "line": 106,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/app.py",
       "line": 113,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/app.py",
       "line": 114,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/app.py",
       "line": 252,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/app.py",
       "line": 334,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/app.py",
       "line": 337,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/bitwarden_checker.py",
       "line": 341,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/bitwarden_checker.py",
       "line": 343,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/path-injection",
       "path": "dashboard/bitwarden_checker.py",
       "line": 345,
       "reason": "false positive",
-      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77, 78."
+      "comment": "dashboard/app.py: the filename passes sanitize_filename() (basename only, [A-Za-z0-9_.-] only, no leading dot, no '..') and safe_path_join() (resolved path must sit inside the resolved base directory). dashboard/bitwarden_checker.py get_report_by_filename(): basename only, no leading dot, and the resolved path must be a regular .json file whose parent is the resolved reports directory. CodeQL does not model these pathlib checks as sanitizers. Matches GitHub alerts 7, 8, 25, 26, 49-54, 77-80 (79/80 are the same sinks after the containment check moved them)."
     },
     {
       "rule": "py/weak-sensitive-data-hashing",
