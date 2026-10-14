@@ -26,6 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+- **Keep bd issues local**: `.beads/issues.jsonl` is now gitignored and
+  untracked, and bd's `export.git-add` is off — the issue tracker stays on
+  the maintainer's machine instead of being published with every commit
 - **Exception text no longer returned by `/api/bitwarden/status`** (`dashboard/bitwarden_checker.py` `check_prerequisites`): an unexpected failure of `bw status` appended `str(e)` to the `errors` list that the endpoint returns verbatim, so filesystem paths and OS error strings could reach the browser (CodeQL `py/stack-trace-exposure`, alert #76). The response now carries a fixed message and the detail goes to the server log
 - **Report lookup proves containment** (`dashboard/bitwarden_checker.py` `get_report_by_filename`): the basename-only sanitisation is kept, and the resolved path must now also be a regular `.json` file whose parent is the resolved reports directory, so a symlink planted in the directory cannot point outside it (CodeQL `py/path-injection`, alerts #77 and #78)
 - **API key no longer passed on the command line** (`hibp_comprehensive_checker.py` `-k/--api-key`, `hibp_workflow.sh` `run_checker`): the key was interpolated into the process argv, where `ps` exposes it to every user on the host and where crash artifacts and process listings capture it. `-k` now defaults to `$HIBP_API_KEY` and is no longer `required=True`, with an explicit post-parse check so a missing key fails as "no key supplied" rather than reaching the API and returning a 401 that reads like "bad key". `-k` is still accepted for compatibility
